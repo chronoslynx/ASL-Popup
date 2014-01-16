@@ -1,6 +1,8 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 
+#import <WebKit/WebKit.h>
+
 @class PanelController;
 
 @protocol PanelControllerDelegate <NSObject>
@@ -25,6 +27,7 @@
 @property (nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *textField;
+@property (strong) IBOutlet WebView *myWebView;
 
 @property (nonatomic) BOOL hasActivePanel;
 @property (nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;

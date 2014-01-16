@@ -8,8 +8,8 @@
 
 #define SEARCH_INSET 17
 
-#define POPUP_HEIGHT 122
-#define PANEL_WIDTH 280
+#define POPUP_HEIGHT 600
+#define PANEL_WIDTH 400
 #define MENU_ANIMATION_DURATION .1
 
 #pragma mark -
@@ -229,6 +229,10 @@
     [NSAnimationContext endGrouping];
     
     [panel performSelector:@selector(makeFirstResponder:) withObject:self.searchField afterDelay:openDuration];
+    
+    NSURL *myURL = [NSURL URLWithString:@"http://www.google.com"];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:myURL];
+    [[self.myWebView mainFrame] loadRequest:request];
 }
 
 - (void)closePanel
