@@ -5,14 +5,12 @@
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
-#define TIME_UNTIL_CLOSE 3
+#define TIME_UNTIL_CLOSE 5
 
 #define SEARCH_INSET 17
 #define WEB_INSET 17
 #define WEB_TOP_INSET 48
 
-//#define WEB_HEIGHT 300
-//#define WEB_WIDTH 500
 #define POPUP_HEIGHT 400
 #define PANEL_WIDTH 600
 #define MENU_ANIMATION_DURATION .5
@@ -37,6 +35,7 @@
         self.httpManager = [AFHTTPRequestOperationManager manager];
 
         NSError *error;
+        //Regex to clean up punctuation
         self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
@@ -63,7 +62,7 @@
     [panel setBackgroundColor:[NSColor clearColor]];
     
     // Follow search string
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidEndEditingNotification object:self.searchField];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidEndEditingNotification object:self.searchField];
 }
 
 #pragma mark - Public accessors
@@ -107,6 +106,7 @@
 
 - (void)windowDidResize:(NSNotification *)notification
 {
+    // Deal with drawing the pane and placing objects.
     NSWindow *panel = [self window];
     NSRect statusRect = [self statusRectForWindow:panel];
     NSRect panelRect = [panel frame];
@@ -163,12 +163,12 @@
     self.hasActivePanel = NO;
 }
 
+/* This method runs when the NSControlTextDidEndEditingNotification is received
+ * Pulls the typed in string and calls the video finding function
+ */
 - (void)runSearch
 {
-//    NSString *searchFormat = @"";
     NSString *searchString = [self.searchField stringValue];
-//    NSString *searchRequest = [NSString stringWithFormat:searchFormat, searchString];
-//    [self.textField setStringValue:searchRequest];
     [self findSignForText:searchString andOpen:NO];
 }
 
@@ -245,12 +245,13 @@
     [NSAnimationContext endGrouping];
     
     [panel performSelector:@selector(makeFirstResponder:) withObject:self.searchField afterDelay:openDuration];
-    
-//    NSURL *myURL = [NSURL URLWithString:@"about:blank"];
-//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:myURL];
-//    [[self.myWebView mainFrame] loadRequest:request];
 }
 
+/* Internal: shorthand method to send notifications.
+ *
+ * title - The Notification's title
+ * details - The descriptive text of the notification
+ */
 - (void)closePanel
 {
     [NSAnimationContext beginGrouping];
@@ -264,6 +265,14 @@
 }
 
 #pragma mark - custom methods for text-ASL
+/* Internal: given a string containing keywords search for the ASL translation 
+ * of the word or phrase
+ *
+ * text - The keywords to translate (currently only works for single words or phrases)
+ * bringToFront - activate and show the panel. This is NO when this function is 
+ * called from runSearch, YES when called by the global hotkey handler
+ *
+ */
 - (void)findSignForText:(NSString *)text andOpen:(BOOL)bringToFront
 {
     NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
@@ -282,10 +291,7 @@
              [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
              if (bringToFront)
              {
-                 [self openPanel]; // cat
-//                 dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * TIME_UNTIL_CLOSE), dispatch_get_main_queue(), ^{
-//                     [self.window orderOut:nil];
-//                 });
+                 [self openPanel];
              }
          } else {
              [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
@@ -299,22 +305,19 @@
 }
 
 #pragma mark - NSUSerNotification methods
+/* Internal: shorthand method to send notifications.
+ *
+ * title - The Notification's title
+ * details - The descriptive text of the notification
+ */
 - (void)sendNotificationWithTitle:(NSString *)title details:(NSString *)details
 {
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    //    notification.responsePlaceholder = @"Reply";
-    //    notification.hasReplyButton = true;
+
     notification.title = title;
     notification.informativeText = details;
     notification.soundName = NSUserNotificationDefaultSoundName;
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-}
-
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
-{
-    //    if (notification.activationType == NSUserNotificationActivationTypeReplied){
-    //        NSString* userResponse = notification.response.string;
-    //    }
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{

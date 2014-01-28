@@ -12,6 +12,7 @@
 
 - (void)dealloc
 {
+    // Clean up our observer
     [_panelController removeObserver:self forKeyPath:@"hasActivePanel"];
 }
 
@@ -35,7 +36,6 @@ void *kContextActivePanel = &kContextActivePanel;
     self.menubarController = [[MenubarController alloc] init];
     self.hotKeyCenter = [DDHotKeyCenter sharedHotKeyCenter];
 
-
     [self registerGlobalHotkey];
 }
 
@@ -57,16 +57,15 @@ void *kContextActivePanel = &kContextActivePanel;
 #pragma mark - DDHotKey functions
 - (void) registerGlobalHotkey
 {
-    // Hotkey is CTRL-F1 currently
-	if (![self.hotKeyCenter registerHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask target:self action:@selector(hotkeyWithEvent:) object:nil]) {
+    // Hotkey is CTRL-F1 currently. TODO: add configurable hotkey
+	if (![self.hotKeyCenter registerHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask
+                                               target:self action:@selector(hotkeyWithEvent:)
+                                               object:nil]) {
         NSLog(@"Error registering hotkey");
-	} else {
-        //		NSLog(@"Successully registered hotkey");
 	}
-
 }
 
--(void) deregisterGlobalHotkey //cat
+-(void) deregisterGlobalHotkey
 {
     [self.hotKeyCenter unregisterHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask];
 }
@@ -76,13 +75,11 @@ void *kContextActivePanel = &kContextActivePanel;
     NSString *selectedText = [DJRPasteboardProxy selectedText];
     NSLog(@"selected: %@", selectedText);
     [[self panelController] findSignForText:selectedText andOpen:YES];
-//    [self findSignForText: selectedText andBringToFront:YES];
-//    self.textField.stringValue = selectedText;
 }
 
-
 #pragma mark - Public accessors
-
+/* Public: return access to the singleton panelController
+ */
 - (PanelController *)panelController
 {
     if (_panelController == nil) {
