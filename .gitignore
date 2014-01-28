@@ -21,6 +21,9 @@ upload*.sh
 *.rb
 pkg/
 bin
+Podfile.lock
+Pods/
+Popup.xcworkspace/xcshareddata/
 
 # default project workspace
 project.xcworkspace
