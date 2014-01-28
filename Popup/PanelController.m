@@ -5,12 +5,17 @@
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
+#define TIME_UNTIL_CLOSE 3
 
 #define SEARCH_INSET 17
+#define WEB_INSET 17
+#define WEB_TOP_INSET 48
 
-#define POPUP_HEIGHT 600
-#define PANEL_WIDTH 400
-#define MENU_ANIMATION_DURATION .1
+//#define WEB_HEIGHT 300
+//#define WEB_WIDTH 500
+#define POPUP_HEIGHT 400
+#define PANEL_WIDTH 600
+#define MENU_ANIMATION_DURATION .5
 
 #pragma mark -
 
@@ -29,13 +34,19 @@
     if (self != nil)
     {
         _delegate = delegate;
+        self.httpManager = [AFHTTPRequestOperationManager manager];
+
+        NSError *error;
+        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
+        self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
+        self.vidBaseURL = @"http://www.youtube.com/embed/";
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidChangeNotification object:self.searchField];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidEndEditingNotification object:self.searchField];
 }
 
 #pragma mark -
@@ -52,7 +63,7 @@
     [panel setBackgroundColor:[NSColor clearColor]];
     
     // Follow search string
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidChangeNotification object:self.searchField];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidEndEditingNotification object:self.searchField];
 }
 
 #pragma mark - Public accessors
@@ -125,6 +136,14 @@
     textRect.origin.x = SEARCH_INSET;
     textRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET * 3 - NSHeight(searchRect);
     textRect.origin.y = SEARCH_INSET;
+
+    NSRect webRect = [self.myWebView frame];
+    webRect.size.width = NSWidth([self.backgroundView bounds]) - WEB_INSET * 2;
+    webRect.origin.x = WEB_INSET;
+    webRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - WEB_TOP_INSET - NSHeight(searchRect);
+    webRect.origin.y = WEB_INSET;
+
+    [self.myWebView setFrame: webRect];
     
     if (NSIsEmptyRect(textRect))
     {
@@ -146,14 +165,11 @@
 
 - (void)runSearch
 {
-    NSString *searchFormat = @"";
+//    NSString *searchFormat = @"";
     NSString *searchString = [self.searchField stringValue];
-    if ([searchString length] > 0)
-    {
-        searchFormat = NSLocalizedString(@"Search for ‘%@’…", @"Format for search request");
-    }
-    NSString *searchRequest = [NSString stringWithFormat:searchFormat, searchString];
-    [self.textField setStringValue:searchRequest];
+//    NSString *searchRequest = [NSString stringWithFormat:searchFormat, searchString];
+//    [self.textField setStringValue:searchRequest];
+    [self findSignForText:searchString andOpen:NO];
 }
 
 #pragma mark - Public methods
@@ -230,9 +246,9 @@
     
     [panel performSelector:@selector(makeFirstResponder:) withObject:self.searchField afterDelay:openDuration];
     
-    NSURL *myURL = [NSURL URLWithString:@"http://www.google.com"];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:myURL];
-    [[self.myWebView mainFrame] loadRequest:request];
+//    NSURL *myURL = [NSURL URLWithString:@"about:blank"];
+//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:myURL];
+//    [[self.myWebView mainFrame] loadRequest:request];
 }
 
 - (void)closePanel
@@ -243,9 +259,68 @@
     [NSAnimationContext endGrouping];
     
     dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^{
-        
         [self.window orderOut:nil];
     });
 }
+
+#pragma mark - custom methods for text-ASL
+- (void)findSignForText:(NSString *)text andOpen:(BOOL)bringToFront
+{
+    NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
+
+    NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+
+    NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
+    [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         if ([responseObject count] != 0)
+         {
+             NSString *videoUrl = [NSString stringWithFormat:@"%@%@",
+                                   self.vidBaseURL,
+                                   [responseObject valueForKey:@"id"][0]];
+             videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+             [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
+             if (bringToFront)
+             {
+                 [self openPanel]; // cat
+//                 dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * TIME_UNTIL_CLOSE), dispatch_get_main_queue(), ^{
+//                     [self.window orderOut:nil];
+//                 });
+             }
+         } else {
+             [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
+             [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+         }
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"%@", error);
+         [self sendNotificationWithTitle:@"ASL Translator Error" details:[NSString stringWithFormat:@"%@", error]];
+     }];
+
+}
+
+#pragma mark - NSUSerNotification methods
+- (void)sendNotificationWithTitle:(NSString *)title details:(NSString *)details
+{
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    //    notification.responsePlaceholder = @"Reply";
+    //    notification.hasReplyButton = true;
+    notification.title = title;
+    notification.informativeText = details;
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    //    if (notification.activationType == NSUserNotificationActivationTypeReplied){
+    //        NSString* userResponse = notification.response.string;
+    //    }
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
+    return YES;
+}
+
+
 
 @end

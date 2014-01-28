@@ -1,5 +1,7 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "DDHotKeyCenter.h"
 
 #import <WebKit/WebKit.h>
 
@@ -24,6 +26,11 @@
     __unsafe_unretained NSTextField *_textField;
 }
 
+@property AFHTTPRequestOperationManager *httpManager;
+@property NSRegularExpression *cleanupRegex;
+@property NSString *searchBaseURL;
+@property NSString *vidBaseURL;
+
 @property (nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *textField;
@@ -36,5 +43,7 @@
 
 - (void)openPanel;
 - (void)closePanel;
+
+- (void)findSignForText:(NSString *)text andOpen:(BOOL)bringToFront;
 
 @end

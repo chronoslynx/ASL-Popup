@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		1166DF7B18886D3E0017F900 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1166DF7A18886D3E0017F900 /* WebKit.framework */; };
+		2E097B3A189800A3006842CF /* DDHotKeyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */; };
+		2E097B3B189800A3006842CF /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B35189800A3006842CF /* DDHotKeyCenter.m */; };
+		2E097B3C189800A3006842CF /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B37189800A3006842CF /* DDHotKeyTextField.m */; };
+		2E097B3D189800A3006842CF /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B39189800A3006842CF /* DDHotKeyUtilities.m */; };
+		2E097B46189800B5006842CF /* DJRKeyboardEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B3F189800B5006842CF /* DJRKeyboardEvents.m */; };
+		2E097B47189800B5006842CF /* DJRKeyboardTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B41189800B5006842CF /* DJRKeyboardTools.m */; };
+		2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B43189800B5006842CF /* DJRPasteboardProxy.m */; };
+		2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */; };
+		2E097B4D1898016B006842CF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E097B4C1898016B006842CF /* Podfile */; };
+		2E966863189801BA00866C82 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E966862189801BA00866C82 /* Carbon.framework */; };
+		8FC936D965D5497DB7625538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE806AE5E81D4CD0861043C6 /* libPods.a */; };
 		DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4F7C0813C30F9F00825C6E /* Cocoa.framework */; };
 		DD4F7C1513C30F9F00825C6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1413C30F9F00825C6E /* main.m */; };
 		DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */; };
@@ -26,6 +37,26 @@
 
 /* Begin PBXFileReference section */
 		1166DF7A18886D3E0017F900 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		2E097B32189800A3006842CF /* DDHotKeyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyAppDelegate.h; sourceTree = "<group>"; };
+		2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyAppDelegate.m; sourceTree = "<group>"; };
+		2E097B34189800A3006842CF /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		2E097B35189800A3006842CF /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		2E097B36189800A3006842CF /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
+		2E097B37189800A3006842CF /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
+		2E097B38189800A3006842CF /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
+		2E097B39189800A3006842CF /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
+		2E097B3E189800B5006842CF /* DJRKeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardEvents.h; sourceTree = "<group>"; };
+		2E097B3F189800B5006842CF /* DJRKeyboardEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRKeyboardEvents.m; sourceTree = "<group>"; };
+		2E097B40189800B5006842CF /* DJRKeyboardTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardTools.h; sourceTree = "<group>"; };
+		2E097B41189800B5006842CF /* DJRKeyboardTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRKeyboardTools.m; sourceTree = "<group>"; };
+		2E097B42189800B5006842CF /* DJRPasteboardProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRPasteboardProxy.h; sourceTree = "<group>"; };
+		2E097B43189800B5006842CF /* DJRPasteboardProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRPasteboardProxy.m; sourceTree = "<group>"; };
+		2E097B44189800B5006842CF /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
+		2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
+		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		2E966862189801BA00866C82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		AE806AE5E81D4CD0861043C6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0413C30F9F00825C6E /* Popup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0813C30F9F00825C6E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DD4F7C0B13C30F9F00825C6E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -59,22 +90,63 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E966863189801BA00866C82 /* Carbon.framework in Frameworks */,
 				1166DF7B18886D3E0017F900 /* WebKit.framework in Frameworks */,
 				DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */,
+				8FC936D965D5497DB7625538 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E097B31189800A3006842CF /* DDHotKey */ = {
+			isa = PBXGroup;
+			children = (
+				2E097B32189800A3006842CF /* DDHotKeyAppDelegate.h */,
+				2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */,
+				2E097B34189800A3006842CF /* DDHotKeyCenter.h */,
+				2E097B35189800A3006842CF /* DDHotKeyCenter.m */,
+				2E097B36189800A3006842CF /* DDHotKeyTextField.h */,
+				2E097B37189800A3006842CF /* DDHotKeyTextField.m */,
+				2E097B38189800A3006842CF /* DDHotKeyUtilities.h */,
+				2E097B39189800A3006842CF /* DDHotKeyUtilities.m */,
+			);
+			path = DDHotKey;
+			sourceTree = "<group>";
+		};
+		2E097B4A189800BA006842CF /* DJRKeyboard* */ = {
+			isa = PBXGroup;
+			children = (
+				2E097B3E189800B5006842CF /* DJRKeyboardEvents.h */,
+				2E097B3F189800B5006842CF /* DJRKeyboardEvents.m */,
+				2E097B40189800B5006842CF /* DJRKeyboardTools.h */,
+				2E097B41189800B5006842CF /* DJRKeyboardTools.m */,
+				2E097B42189800B5006842CF /* DJRPasteboardProxy.h */,
+				2E097B43189800B5006842CF /* DJRPasteboardProxy.m */,
+			);
+			name = "DJRKeyboard*";
+			sourceTree = "<group>";
+		};
+		2E097B4B189800C5006842CF /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				2E097B44189800B5006842CF /* NSPasteboard+SaveRestore.h */,
+				2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		DD4F7BF913C30F9F00825C6E = {
 			isa = PBXGroup;
 			children = (
+				2E097B4C1898016B006842CF /* Podfile */,
 				DD4F7C0E13C30F9F00825C6E /* Sources */,
 				DD4F7C2813C3123E00825C6E /* User Interface */,
 				DD4F7C0713C30F9F00825C6E /* Frameworks */,
 				DD4F7C0513C30F9F00825C6E /* Products */,
 				DD4F7C1013C30F9F00825C6E /* Popup-Info.plist */,
+				A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,11 +161,13 @@
 		DD4F7C0713C30F9F00825C6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E966862189801BA00866C82 /* Carbon.framework */,
 				1166DF7A18886D3E0017F900 /* WebKit.framework */,
 				DD4F7C0B13C30F9F00825C6E /* AppKit.framework */,
 				DD4F7C0C13C30F9F00825C6E /* CoreData.framework */,
 				DD4F7C0D13C30F9F00825C6E /* Foundation.framework */,
 				DD4F7C0813C30F9F00825C6E /* Cocoa.framework */,
+				AE806AE5E81D4CD0861043C6 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,6 +175,9 @@
 		DD4F7C0E13C30F9F00825C6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2E097B4A189800BA006842CF /* DJRKeyboard* */,
+				2E097B4B189800C5006842CF /* Categories */,
+				2E097B31189800A3006842CF /* DDHotKey */,
 				DD4F7C2613C311DF00825C6E /* Controllers */,
 				DD4F7C3913C317EC00825C6E /* Views */,
 				DD4F7C0F13C30F9F00825C6E /* Supporting Files */,
@@ -180,9 +257,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD4F7C2213C30F9F00825C6E /* Build configuration list for PBXNativeTarget "Popup" */;
 			buildPhases = (
+				2DA9FE44A2D443C19AF60A33 /* Check Pods Manifest.lock */,
 				DD4F7C0013C30F9F00825C6E /* Sources */,
 				DD4F7C0113C30F9F00825C6E /* Frameworks */,
 				DD4F7C0213C30F9F00825C6E /* Resources */,
+				BABFD3B061FF42EC8D29865C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -228,23 +307,65 @@
 				DD4F7C4B13C322FA00825C6E /* Status.png in Resources */,
 				DD4F7C4C13C322FA00825C6E /* StatusHighlighted.png in Resources */,
 				DDF4EFAC16C80A510044D141 /* Status@2x.png in Resources */,
+				2E097B4D1898016B006842CF /* Podfile in Resources */,
 				DDF4EFAE16C80AD30044D141 /* StatusHighlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2DA9FE44A2D443C19AF60A33 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BABFD3B061FF42EC8D29865C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DD4F7C0013C30F9F00825C6E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E097B46189800B5006842CF /* DJRKeyboardEvents.m in Sources */,
+				2E097B3A189800A3006842CF /* DDHotKeyAppDelegate.m in Sources */,
+				2E097B3C189800A3006842CF /* DDHotKeyTextField.m in Sources */,
 				DD4F7C1513C30F9F00825C6E /* main.m in Sources */,
+				2E097B3D189800A3006842CF /* DDHotKeyUtilities.m in Sources */,
 				DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */,
 				DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */,
 				DD4F7C3C13C3180800825C6E /* StatusItemView.m in Sources */,
+				2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */,
 				DD4F7C3F13C318D600825C6E /* PanelController.m in Sources */,
+				2E097B47189800B5006842CF /* DJRKeyboardTools.m in Sources */,
 				DD4F7C4413C31BD200825C6E /* Panel.m in Sources */,
+				2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */,
+				2E097B3B189800A3006842CF /* DDHotKeyCenter.m in Sources */,
 				DD4F7C4713C3208500825C6E /* BackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,12 +442,14 @@
 		};
 		DD4F7C2313C30F9F00825C6E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Popup/Popup-Prefix.pch";
 				INFOPLIST_FILE = "Popup/Popup-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -334,12 +457,14 @@
 		};
 		DD4F7C2413C30F9F00825C6E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Popup/Popup-Prefix.pch";
 				INFOPLIST_FILE = "Popup/Popup-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -1,18 +1,19 @@
 #import "ApplicationDelegate.h"
+#import "DJRPasteboardProxy.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @implementation ApplicationDelegate
 
 @synthesize panelController = _panelController;
 @synthesize menubarController = _menubarController;
 
-#pragma mark -
+
+#pragma mark - Popup Setup Methods
 
 - (void)dealloc
 {
     [_panelController removeObserver:self forKeyPath:@"hasActivePanel"];
 }
-
-#pragma mark -
 
 void *kContextActivePanel = &kContextActivePanel;
 
@@ -32,6 +33,10 @@ void *kContextActivePanel = &kContextActivePanel;
 {
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
+    self.hotKeyCenter = [DDHotKeyCenter sharedHotKeyCenter];
+
+
+    [self registerGlobalHotkey];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -48,6 +53,33 @@ void *kContextActivePanel = &kContextActivePanel;
     self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
     self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
 }
+
+#pragma mark - DDHotKey functions
+- (void) registerGlobalHotkey
+{
+    // Hotkey is CTRL-F1 currently
+	if (![self.hotKeyCenter registerHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask target:self action:@selector(hotkeyWithEvent:) object:nil]) {
+        NSLog(@"Error registering hotkey");
+	} else {
+        //		NSLog(@"Successully registered hotkey");
+	}
+
+}
+
+-(void) deregisterGlobalHotkey //cat
+{
+    [self.hotKeyCenter unregisterHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask];
+}
+
+- (void) hotkeyWithEvent:(NSEvent *)hkEvent {
+    //    NSLog(@"%@", hkEvent);
+    NSString *selectedText = [DJRPasteboardProxy selectedText];
+    NSLog(@"selected: %@", selectedText);
+    [[self panelController] findSignForText:selectedText andOpen:YES];
+//    [self findSignForText: selectedText andBringToFront:YES];
+//    self.textField.stringValue = selectedText;
+}
+
 
 #pragma mark - Public accessors
 
