@@ -85,6 +85,7 @@
         }
         else
         {
+            self.searchField.stringValue = @"";
             [self closePanel];
         }
     }
@@ -168,7 +169,10 @@
 - (void)runSearch
 {
     NSString *searchString = [self.searchField stringValue];
-    [self findSignForText:searchString afterwards:^(){}];
+    if (searchString.length > 0)
+    {
+        [self findSignForText:searchString afterwards:^(){}];
+    }
 }
 
 #pragma mark - Public methods
