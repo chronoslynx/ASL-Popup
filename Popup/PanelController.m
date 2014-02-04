@@ -39,7 +39,7 @@
         self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
-        self.vidOptions = @"?autoplay=1Ç";
+        self.vidOptions = @"?autoplay=1";
         self.alreadySearching = NO;
     }
     return self;

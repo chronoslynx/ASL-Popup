@@ -18,6 +18,7 @@
 		2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */; };
 		2E097B4D1898016B006842CF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E097B4C1898016B006842CF /* Podfile */; };
 		2E966863189801BA00866C82 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E966862189801BA00866C82 /* Carbon.framework */; };
+		2EE57ACA18A140EA004C78A4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EE57AC918A140EA004C78A4 /* README.md */; };
 		8FC936D965D5497DB7625538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE806AE5E81D4CD0861043C6 /* libPods.a */; };
 		DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4F7C0813C30F9F00825C6E /* Cocoa.framework */; };
 		DD4F7C1513C30F9F00825C6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1413C30F9F00825C6E /* main.m */; };
@@ -55,6 +56,7 @@
 		2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
 		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		2E966862189801BA00866C82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		2EE57AC918A140EA004C78A4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AE806AE5E81D4CD0861043C6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0413C30F9F00825C6E /* Popup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popup.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +142,7 @@
 		DD4F7BF913C30F9F00825C6E = {
 			isa = PBXGroup;
 			children = (
+				2EE57AC918A140EA004C78A4 /* README.md */,
 				2E097B4C1898016B006842CF /* Podfile */,
 				DD4F7C0E13C30F9F00825C6E /* Sources */,
 				DD4F7C2813C3123E00825C6E /* User Interface */,
@@ -308,6 +311,7 @@
 				DD4F7C4C13C322FA00825C6E /* StatusHighlighted.png in Resources */,
 				DDF4EFAC16C80A510044D141 /* Status@2x.png in Resources */,
 				2E097B4D1898016B006842CF /* Podfile in Resources */,
+				2EE57ACA18A140EA004C78A4 /* README.md in Resources */,
 				DDF4EFAE16C80AD30044D141 /* StatusHighlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
