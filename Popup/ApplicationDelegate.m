@@ -43,6 +43,8 @@ void *kContextActivePanel = &kContextActivePanel;
 {
     // Explicitly remove the icon from the menu bar
     self.menubarController = nil;
+    // Explicitly remove the hotkey we reserved
+    [self deregisterGlobalHotkey];
     return NSTerminateNow;
 }
 
@@ -71,10 +73,16 @@ void *kContextActivePanel = &kContextActivePanel;
 }
 
 - (void) hotkeyWithEvent:(NSEvent *)hkEvent {
-    //    NSLog(@"%@", hkEvent);
     NSString *selectedText = [DJRPasteboardProxy selectedText];
-    NSLog(@"selected: %@", selectedText);
-    [[self panelController] findSignForText:selectedText andOpen:YES];
+    if (selectedText.length > 0)
+    {
+        // Make sure we avoid a retain cycle
+        __weak typeof(self) weakSelf = self;
+        [[self panelController] findSignForText:selectedText afterwards:^(void){
+            typeof(self) strongSelf = weakSelf;
+            [strongSelf togglePanel:nil];
+        }];
+    }
 }
 
 #pragma mark - Public accessors

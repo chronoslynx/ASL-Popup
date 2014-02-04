@@ -38,12 +38,13 @@
 
 @property (nonatomic) BOOL hasActivePanel;
 @property (nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;
+@property (nonatomic) BOOL alreadySearching;
 
 - (id)initWithDelegate:(id<PanelControllerDelegate>)delegate;
 
 - (void)openPanel;
 - (void)closePanel;
 
-- (void)findSignForText:(NSString *)text andOpen:(BOOL)bringToFront;
+- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock; //andOpen:(BOOL)bringToFront;
 
 @end

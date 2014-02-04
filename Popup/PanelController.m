@@ -39,6 +39,7 @@
         self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
+        self.alreadySearching = NO;
     }
     return self;
 }
@@ -61,7 +62,7 @@
     [panel setOpaque:NO];
     [panel setBackgroundColor:[NSColor clearColor]];
     
-    // Follow search string
+    // Run the ASL search when editing done
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidEndEditingNotification object:self.searchField];
 }
 
@@ -163,17 +164,15 @@
     self.hasActivePanel = NO;
 }
 
-/* This method runs when the NSControlTextDidEndEditingNotification is received
- * Pulls the typed in string and calls the video finding function
- */
+/* Internal: triggered by the NSControlText{}Notification. Runs the Sign search from the search box */
 - (void)runSearch
 {
     NSString *searchString = [self.searchField stringValue];
-    [self findSignForText:searchString andOpen:NO];
+    [self findSignForText:searchString afterwards:^(){}];
 }
 
 #pragma mark - Public methods
-
+/* Internal: gets the rect or the entire popup panel. I believe */
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
@@ -199,6 +198,7 @@
     return statusRect;
 }
 
+/* Internal: animates the opening of the panel window */
 - (void)openPanel
 {
     NSWindow *panel = [self window];
@@ -247,11 +247,7 @@
     [panel performSelector:@selector(makeFirstResponder:) withObject:self.searchField afterDelay:openDuration];
 }
 
-/* Internal: shorthand method to send notifications.
- *
- * title - The Notification's title
- * details - The descriptive text of the notification
- */
+/* Internal: animates the closing of the panel window */
 - (void)closePanel
 {
     [NSAnimationContext beginGrouping];
@@ -269,39 +265,47 @@
  * of the word or phrase
  *
  * text - The keywords to translate (currently only works for single words or phrases)
- * bringToFront - activate and show the panel. This is NO when this function is 
- * called from runSearch, YES when called by the global hotkey handler
+ * afterwards - callback to execute upon completion of the Sign search. When called from the hotkey binding this opens
+ *    the panel. The callback is an empty function when this is called by the NSControlTextDidEndEditingNotification watcher
  *
  */
-- (void)findSignForText:(NSString *)text andOpen:(BOOL)bringToFront
+- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock;
 {
-    NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
+    if (self.alreadySearching == YES)
+    {
+        //TODO: Figure out why NSControlTextDidEndEditingNotification is sent when the panel opens from hotkey
+        NSLog(@"Already searching for a sign");
+    }
+    else
+    {
+        self.alreadySearching = YES;
+        NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
 
-    NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+        NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 
-    NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
-    [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         if ([responseObject count] != 0)
+        NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
+        [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
-             NSString *videoUrl = [NSString stringWithFormat:@"%@%@",
-                                   self.vidBaseURL,
-                                   [responseObject valueForKey:@"id"][0]];
-             videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-             [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
-             if (bringToFront)
+             if ([responseObject count] != 0)
              {
-                 [self openPanel];
-             }
-         } else {
-             [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
-             [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-         }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"%@", error);
-         [self sendNotificationWithTitle:@"ASL Translator Error" details:[NSString stringWithFormat:@"%@", error]];
-     }];
+                 NSString *videoUrl = [NSString stringWithFormat:@"%@%@",
+                                       self.vidBaseURL,
+                                       [responseObject valueForKey:@"id"][0]];
+                 videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+                 [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
+                 callbackBlock(); // The only callback used currently is to properly open our panel
 
+             } else {
+                 [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
+                 [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+             }
+             self.alreadySearching = NO;
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"%@", error);
+             [self sendNotificationWithTitle:@"ASL Translator Error" details:[NSString stringWithFormat:@"%@", error]];
+             self.alreadySearching = NO;
+         }];
+    }
 }
 
 #pragma mark - NSUSerNotification methods
