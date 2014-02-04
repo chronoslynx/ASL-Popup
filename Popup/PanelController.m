@@ -39,6 +39,7 @@
         self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
+        self.vidOptions = @"?autoplay=1Ç";
         self.alreadySearching = NO;
     }
     return self;
@@ -292,9 +293,10 @@
          {
              if ([responseObject count] != 0)
              {
-                 NSString *videoUrl = [NSString stringWithFormat:@"%@%@",
+                 NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@",
                                        self.vidBaseURL,
-                                       [responseObject valueForKey:@"id"][0]];
+                                       [responseObject valueForKey:@"id"][0],
+                                       self.vidOptions];
                  videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
                  [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  callbackBlock(); // The only callback used currently is to properly open our panel

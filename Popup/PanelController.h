@@ -30,6 +30,7 @@
 @property NSRegularExpression *cleanupRegex;
 @property NSString *searchBaseURL;
 @property NSString *vidBaseURL;
+@property NSString *vidOptions;
 
 @property (nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
