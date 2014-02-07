@@ -36,7 +36,7 @@
 
         NSError *error;
         //Regex to clean up punctuation
-        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|\\.|,)" options:NSRegularExpressionCaseInsensitive error:&error];
+        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[\\.,?!\"';:-~])" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
         self.vidOptions = @"?autoplay=1";

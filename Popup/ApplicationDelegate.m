@@ -82,6 +82,8 @@ void *kContextActivePanel = &kContextActivePanel;
             typeof(self) strongSelf = weakSelf;
             [strongSelf togglePanel:nil];
         }];
+    } else {
+        [self togglePanel:nil];
     }
 }
 
