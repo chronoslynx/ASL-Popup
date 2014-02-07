@@ -60,8 +60,10 @@ void *kContextActivePanel = &kContextActivePanel;
 - (void) registerGlobalHotkey
 {
     // Hotkey is CTRL-F1 currently. TODO: add configurable hotkey
-	if (![self.hotKeyCenter registerHotKeyWithKeyCode:kVK_F1 modifierFlags:NSControlKeyMask
-                                               target:self action:@selector(hotkeyWithEvent:)
+	if (![self.hotKeyCenter registerHotKeyWithKeyCode:kVK_F1
+                                        modifierFlags:NSControlKeyMask
+                                               target:self
+                                               action:@selector(hotkeyWithEvent:)
                                                object:nil]) {
         NSLog(@"Error registering hotkey");
 	}
