@@ -15,6 +15,8 @@
 #define PANEL_WIDTH 600
 #define MENU_ANIMATION_DURATION .5
 
+#define MAX_KEYWORD_LENGTH 100
+
 #pragma mark -
 
 @implementation PanelController
@@ -36,7 +38,7 @@
 
         NSError *error;
         //Regex to clean up punctuation
-        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[\\.,?!\"';:-~])" options:NSRegularExpressionCaseInsensitive error:&error];
+        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
         self.vidOptions = @"?autoplay=1";
@@ -166,7 +168,7 @@
     self.hasActivePanel = NO;
 }
 
-/* Internal: triggered by the NSControlText{}Notification. Runs the Sign search from the search box */
+/* Internal: triggered by the NSControlText{*}Notification. Runs the Sign search from the search box */
 - (void)runSearch
 {
     NSString *searchString = [self.searchField stringValue];
@@ -284,7 +286,14 @@
     else
     {
         self.alreadySearching = YES;
+        // Clean up the string: remove punctuation, etc.
         NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
+        
+        // Limit the search string's length to 100 characters
+        if (keywords.length > MAX_KEYWORD_LENGTH) {
+            keywords = [keywords substringToIndex:MAX_KEYWORD_LENGTH];
+        }
+        NSLog(@"Keywords: %@", keywords);
 
         NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 
@@ -308,7 +317,7 @@
              self.alreadySearching = NO;
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"%@", error);
-             [self sendNotificationWithTitle:@"ASL Translator Error" details:[NSString stringWithFormat:@"%@", error]];
+             [self sendNotificationWithTitle:@"Smartsign Error" details:[NSString stringWithFormat:@"%@", error]];
              self.alreadySearching = NO;
          }];
     }
