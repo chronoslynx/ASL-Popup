@@ -1,6 +1,7 @@
 #import "ApplicationDelegate.h"
 #import "DJRPasteboardProxy.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "SmartsignHelper.h"
 
 @implementation ApplicationDelegate
 
@@ -80,8 +81,9 @@ void *kContextActivePanel = &kContextActivePanel;
     {
         // Make sure we avoid a retain cycle
         __weak typeof(self) weakSelf = self;
-        [[self panelController] findSignForText:selectedText afterwards:^(void){
+        [[SmartsignHelper shared] findSignForText:selectedText afterwards:^(NSArray *urls){
             typeof(self) strongSelf = weakSelf;
+            [strongSelf.panelController loadVideosFromArray:urls];
             [strongSelf togglePanel:nil];
         }];
     } else {

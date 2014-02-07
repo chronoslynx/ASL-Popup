@@ -74,26 +74,17 @@
              NSMutableArray *videoUrls = [[NSMutableArray alloc] init];
              if ([responseObject count] != 0)
              {
-                 
+//                 NSLog(@"%@", responseObject);
                  [responseObject enumerateObjectsUsingBlock:^(NSString *videoID, NSUInteger idx, BOOL *stop) {
-                     NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@",
-                                           self.vidBaseURL,
-                                           [responseObject valueForKey:@"id"][0],
-                                           self.vidOptions];
+                     NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@", self.vidBaseURL,[responseObject valueForKey:@"id"][0], self.vidOptions];
                      videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-//                     [videoUrls addObject: [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
                      [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  }];
-                 //TODO: need to build a list of videos
-                 
-//                 [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
-                 
              } else {
                  [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
                  [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
              }
              callbackBlock(videoUrls); //TODO: callbackBlock should take an array of videos to present.
-
              self.alreadySearching = NO;
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"%@", error);

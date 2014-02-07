@@ -165,11 +165,27 @@
     NSString *searchString = [self.searchField stringValue];
     if (searchString.length > 0)
     {
-        [_smartsignHelper findSignForText:searchString afterwards:^(){}];
+        __weak typeof(self) weakSelf = self;
+        [_smartsignHelper findSignForText:searchString afterwards:^(NSArray* urls)
+        {
+            typeof(self) strongSelf = weakSelf;
+            [strongSelf loadVideosFromArray:urls];
+        }];
     }
 }
 
 #pragma mark - Public methods
+- (void)loadVideosFromArray:(NSArray *)urls
+{
+    [urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isMemberOfClass:[NSURLRequest class]])
+        {
+#pragma mark TODO: need to build a webview scroll the panel so we can fit each web view?
+            [_myWebView.mainFrame loadRequest:obj];
+        }
+    }];
+}
+
 /* Internal: gets the rect or the entire popup panel. I believe */
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
@@ -257,10 +273,4 @@
         [self.window orderOut:nil];
     });
 }
-
-#pragma mark - custom methods for text-ASL
-
-
-
-
 @end

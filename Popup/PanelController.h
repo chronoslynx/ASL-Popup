@@ -39,6 +39,7 @@
 
 - (void)openPanel;
 - (void)closePanel;
+- (void)loadVideosFromArray:(NSArray*)urls;
 
 
 @end
