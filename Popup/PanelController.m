@@ -9,12 +9,11 @@
 
 #define SEARCH_INSET 17
 #define WEB_HEIGHT 240
-#define WEB_WIDTH 360
-#define WEB_INSET 17
-#define WEB_TOP_INSET 48
+#define WEB_INSET 5
+#define WEB_SEARCH_WIDTH 0
 
 #define POPUP_HEIGHT 110
-#define PANEL_WIDTH 600
+#define PANEL_WIDTH 430
 #define MENU_ANIMATION_DURATION .5
 
 #pragma mark -
@@ -136,7 +135,6 @@
     textRect.origin.x = SEARCH_INSET;
     textRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET * 3 - NSHeight(searchRect);
     textRect.origin.y = SEARCH_INSET;
-
     
     if (NSIsEmptyRect(textRect))
     {
@@ -147,17 +145,6 @@
         [self.textField setFrame:textRect];
         [self.textField setHidden:NO];
     }
-    
-    // Place all of the WebViews
-    [_scrollView.subviews enumerateObjectsUsingBlock:^(WebView *webView, NSUInteger idx, BOOL *stop)
-    {
-         NSRect webRect = [webView frame];
-         webRect.size.width = WEB_WIDTH;
-         webRect.origin.x = WEB_INSET;
-         webRect.size.height = WEB_HEIGHT;
-         webRect.origin.y =WEB_INSET ;// idx*(WEB_INSET + WEB_HEIGHT);
-         [webView setFrame: webRect];
-    }];
 }
 
 #pragma mark - Keyboard
@@ -183,33 +170,43 @@
 }
 
 #pragma mark - Public methods
+/* Public: Builds the ScrollView's ContentView by creating and placing WebViews for each URL
+ *
+ * urls - NSArray of NSURLRequests used to build the WebViews
+ *
+ * Returns nothing
+ */
 - (void)loadVideosFromArray:(NSArray *)urls
 {
     if (urls.count > 0)
     {
         NSMutableArray *newWebViews = [[NSMutableArray alloc] init];
-        [urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            
-            if ([obj isMemberOfClass:[NSURLRequest class]])
-            {
-    #pragma mark TODO: need to build a webview; scroll the panel so we can fit each web view?
-    //            [_myWebView.mainFrame loadRequest:obj];
-                WebView *webView = [[WebView alloc] init];
-                [[webView mainFrame] loadRequest:obj];
-    //            [[webView mainFrame] scro];
-                [newWebViews addObject: webView];
-            }
+        NSRect scrollRect = [_scrollView frame];
+        // Build each WebView and place them in the ContentView's frame
+        [urls enumerateObjectsUsingBlock:^(NSURLRequest *obj, NSUInteger idx, BOOL *stop)
+        {
+            NSRect webRect = NSMakeRect(WEB_INSET, idx*(WEB_INSET + WEB_HEIGHT), scrollRect.size.width, WEB_HEIGHT);
+            WebView *webView = [[WebView alloc] initWithFrame:webRect];
+            [webView setFrame: webRect];
+            [webView.mainFrame.frameView setAllowsScrolling:NO];
+            [webView.mainFrame loadRequest:obj];
+            [newWebViews addObject: webView];
         }];
+        
+        // Set the content view's new subviews
         _webViews = [NSArray arrayWithArray:newWebViews];
-        NSClipView *webContainerView = [[NSClipView alloc] init];
-        [webContainerView setSubviews:_webViews];
-        [_scrollView setContentView:webContainerView];
-        _scrollView.hidden = NO;
+        [_scrollView.documentView setFrame:NSMakeRect(0, 0, scrollRect.size.width - 2*WEB_INSET, _webViews.count * WEB_HEIGHT+ (_webViews.count - 1) * WEB_INSET)];
+        [_scrollView.documentView setSubviews:_webViews];
+        
+        // Scroll to the top of the DocumentView
+//        [_scrollView.documentView scrollPoint:NSMakePoint(0,0)];
+//        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+//        [_scrollView.verticalScroller setFloatValue:0.0];
         [_scrollView setNeedsDisplay:YES];
+
     }
 }
 
-/* Internal: gets the rect or the entire popup panel. I believe */
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
@@ -245,7 +242,7 @@
 
     NSRect panelRect = [panel frame];
     panelRect.size.width = PANEL_WIDTH;
-    panelRect.size.height = POPUP_HEIGHT + _webViews.count * (WEB_HEIGHT + WEB_INSET);
+    panelRect.size.height = POPUP_HEIGHT + WEB_HEIGHT + 2*WEB_INSET;
     panelRect.origin.x = roundf(NSMidX(statusRect) - NSWidth(panelRect) / 2);
     panelRect.origin.y = NSMaxY(statusRect) - NSHeight(panelRect);
     
@@ -296,8 +293,7 @@
     {
         [self.window orderOut:nil];
         _webViews = [[NSArray alloc] init];
-        [_scrollView setContentView:[[NSClipView alloc] init]];
-        _scrollView.hidden = YES;
+        [_scrollView.documentView setSubviews:_webViews];
     });
 }
 @end
