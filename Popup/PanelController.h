@@ -1,7 +1,7 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "DDHotKeyCenter.h"
+#import "SmartsignHelper.h"
 
 #import <WebKit/WebKit.h>
 
@@ -26,26 +26,22 @@
     __unsafe_unretained NSTextField *_textField;
 }
 
-@property AFHTTPRequestOperationManager *httpManager;
-@property NSRegularExpression *cleanupRegex;
-@property NSString *searchBaseURL;
-@property NSString *vidBaseURL;
-@property NSString *vidOptions;
-
 @property (nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *textField;
-@property (strong) IBOutlet WebView *myWebView;
+//@property (strong) IBOutlet WebView *myWebView;
+@property (nonatomic, strong) NSArray *webViews;
+@property (strong) IBOutlet NSScrollView *scrollView;
 
 @property (nonatomic) BOOL hasActivePanel;
 @property (nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;
-@property (nonatomic) BOOL alreadySearching;
+@property (nonatomic, readonly) SmartsignHelper *smartsignHelper;
 
 - (id)initWithDelegate:(id<PanelControllerDelegate>)delegate;
 
 - (void)openPanel;
 - (void)closePanel;
+- (void)loadVideosFromArray:(NSArray*)urls;
 
-- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock; //andOpen:(BOOL)bringToFront;
 
 @end

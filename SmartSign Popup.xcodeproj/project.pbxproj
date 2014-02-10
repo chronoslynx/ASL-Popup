@@ -17,8 +17,10 @@
 		2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B43189800B5006842CF /* DJRPasteboardProxy.m */; };
 		2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */; };
 		2E097B4D1898016B006842CF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E097B4C1898016B006842CF /* Podfile */; };
+		2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */; };
 		2E966863189801BA00866C82 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E966862189801BA00866C82 /* Carbon.framework */; };
 		2EE57ACA18A140EA004C78A4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EE57AC918A140EA004C78A4 /* README.md */; };
+		2EFF0A9A18A96DEF00B80C0B /* FlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF0A9918A96DEF00B80C0B /* FlippedView.m */; };
 		8FC936D965D5497DB7625538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE806AE5E81D4CD0861043C6 /* libPods.a */; };
 		DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4F7C0813C30F9F00825C6E /* Cocoa.framework */; };
 		DD4F7C1513C30F9F00825C6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1413C30F9F00825C6E /* main.m */; };
@@ -55,8 +57,12 @@
 		2E097B44189800B5006842CF /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
 		2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
 		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartsignHelper.h; sourceTree = "<group>"; };
+		2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartsignHelper.m; sourceTree = "<group>"; };
 		2E966862189801BA00866C82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		2EE57AC918A140EA004C78A4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		2EFF0A9818A96DEF00B80C0B /* FlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlippedView.h; sourceTree = "<group>"; };
+		2EFF0A9918A96DEF00B80C0B /* FlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlippedView.m; sourceTree = "<group>"; };
 		A331DC29FF62462DA4AB41D1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AE806AE5E81D4CD0861043C6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0413C30F9F00825C6E /* SmartSign Popup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SmartSign Popup.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +184,8 @@
 		DD4F7C0E13C30F9F00825C6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */,
+				2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */,
 				2E097B4A189800BA006842CF /* DJRKeyboard* */,
 				2E097B4B189800C5006842CF /* Categories */,
 				2E097B31189800A3006842CF /* DDHotKey */,
@@ -232,6 +240,8 @@
 		DD4F7C3913C317EC00825C6E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EFF0A9818A96DEF00B80C0B /* FlippedView.h */,
+				2EFF0A9918A96DEF00B80C0B /* FlippedView.m */,
 				DD4F7C4213C31BD200825C6E /* Panel.h */,
 				DD4F7C4313C31BD200825C6E /* Panel.m */,
 				DD4F7C3A13C3180800825C6E /* StatusItemView.h */,
@@ -281,7 +291,7 @@
 		DD4F7BFB13C30F9F00825C6E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = DD4F7BFE13C30F9F00825C6E /* Build configuration list for PBXProject "SmartSign Popup" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -360,6 +370,8 @@
 				2E097B3A189800A3006842CF /* DDHotKeyAppDelegate.m in Sources */,
 				2E097B3C189800A3006842CF /* DDHotKeyTextField.m in Sources */,
 				DD4F7C1513C30F9F00825C6E /* main.m in Sources */,
+				2EFF0A9A18A96DEF00B80C0B /* FlippedView.m in Sources */,
+				2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */,
 				2E097B3D189800A3006842CF /* DDHotKeyUtilities.m in Sources */,
 				DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */,
 				DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */,
@@ -393,8 +405,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -412,7 +425,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
@@ -424,8 +439,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -437,7 +453,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;

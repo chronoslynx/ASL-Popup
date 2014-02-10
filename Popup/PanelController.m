@@ -8,14 +8,13 @@
 #define TIME_UNTIL_CLOSE 5
 
 #define SEARCH_INSET 17
-#define WEB_INSET 17
-#define WEB_TOP_INSET 48
+#define WEB_HEIGHT 240
+#define WEB_INSET 5
+#define WEB_RIGHT_INSET 17
 
-#define POPUP_HEIGHT 400
-#define PANEL_WIDTH 600
+#define POPUP_HEIGHT 110
+#define PANEL_WIDTH 430
 #define MENU_ANIMATION_DURATION .5
-
-#define MAX_KEYWORD_LENGTH 100
 
 #pragma mark -
 
@@ -25,6 +24,8 @@
 @synthesize delegate = _delegate;
 @synthesize searchField = _searchField;
 @synthesize textField = _textField;
+@synthesize webViews = _webViews;
+@synthesize smartsignHelper = _smartsignHelper;
 
 #pragma mark -
 
@@ -34,15 +35,8 @@
     if (self != nil)
     {
         _delegate = delegate;
-        self.httpManager = [AFHTTPRequestOperationManager manager];
-
-        NSError *error;
-        //Regex to clean up punctuation
-        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])" options:NSRegularExpressionCaseInsensitive error:&error];
-        self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
-        self.vidBaseURL = @"http://www.youtube.com/embed/";
-        self.vidOptions = @"?autoplay=1";
-        self.alreadySearching = NO;
+        _smartsignHelper = [SmartsignHelper shared];
+        _webViews = [[NSArray alloc] init];
     }
     return self;
 }
@@ -141,14 +135,6 @@
     textRect.origin.x = SEARCH_INSET;
     textRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET * 3 - NSHeight(searchRect);
     textRect.origin.y = SEARCH_INSET;
-
-    NSRect webRect = [self.myWebView frame];
-    webRect.size.width = NSWidth([self.backgroundView bounds]) - WEB_INSET * 2;
-    webRect.origin.x = WEB_INSET;
-    webRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - WEB_TOP_INSET - NSHeight(searchRect);
-    webRect.origin.y = WEB_INSET;
-
-    [self.myWebView setFrame: webRect];
     
     if (NSIsEmptyRect(textRect))
     {
@@ -174,12 +160,53 @@
     NSString *searchString = [self.searchField stringValue];
     if (searchString.length > 0)
     {
-        [self findSignForText:searchString afterwards:^(){}];
+        __weak typeof(self) weakSelf = self;
+        [_smartsignHelper findSignForText:searchString afterwards:^(NSArray* urls)
+        {
+            typeof(self) strongSelf = weakSelf;
+            [strongSelf loadVideosFromArray:urls];
+        }];
     }
 }
 
 #pragma mark - Public methods
-/* Internal: gets the rect or the entire popup panel. I believe */
+/* Public: Builds the ScrollView's ContentView by creating and placing WebViews for each URL
+ *
+ * urls - NSArray of NSURLRequests used to build the WebViews
+ *
+ * Returns nothing
+ */
+- (void)loadVideosFromArray:(NSArray *)urls
+{
+    if (urls.count > 0)
+    {
+        NSMutableArray *newWebViews = [[NSMutableArray alloc] init];
+        NSRect scrollRect = [_scrollView frame];
+        // Build each WebView and place them in the ContentView's frame
+        [urls enumerateObjectsUsingBlock:^(NSURLRequest *obj, NSUInteger idx, BOOL *stop)
+        {
+            NSRect webRect = NSMakeRect(WEB_INSET, idx*(WEB_INSET + WEB_HEIGHT), scrollRect.size.width - WEB_RIGHT_INSET, WEB_HEIGHT);
+            WebView *webView = [[WebView alloc] initWithFrame:webRect];
+            [webView setFrame: webRect];
+            [webView.mainFrame.frameView setAllowsScrolling:NO];
+            [webView.mainFrame loadRequest:obj];
+            [newWebViews addObject: webView];
+        }];
+        
+        // Set the content view's new subviews
+        _webViews = [NSArray arrayWithArray:newWebViews];
+        [_scrollView.documentView setFrame:NSMakeRect(0, 0, scrollRect.size.width - 2*WEB_INSET, _webViews.count * WEB_HEIGHT+ (_webViews.count - 1) * WEB_INSET)];
+        [_scrollView.documentView setSubviews:_webViews];
+        
+        // Scroll to the top of the DocumentView
+//        [_scrollView.documentView scrollPoint:NSMakePoint(0,0)];
+//        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+//        [_scrollView.verticalScroller setFloatValue:0.0];
+        [_scrollView setNeedsDisplay:YES];
+
+    }
+}
+
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
@@ -215,7 +242,7 @@
 
     NSRect panelRect = [panel frame];
     panelRect.size.width = PANEL_WIDTH;
-    panelRect.size.height = POPUP_HEIGHT;
+    panelRect.size.height = POPUP_HEIGHT + WEB_HEIGHT + 2*WEB_INSET;
     panelRect.origin.x = roundf(NSMidX(statusRect) - NSWidth(panelRect) / 2);
     panelRect.origin.y = NSMaxY(statusRect) - NSHeight(panelRect);
     
@@ -262,87 +289,11 @@
     [[[self window] animator] setAlphaValue:0];
     [NSAnimationContext endGrouping];
     
-    dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^
+    {
         [self.window orderOut:nil];
+        _webViews = [[NSArray alloc] init];
+        [_scrollView.documentView setSubviews:_webViews];
     });
 }
-
-#pragma mark - custom methods for text-ASL
-/* Internal: given a string containing keywords search for the ASL translation 
- * of the word or phrase
- *
- * text - The keywords to translate (currently only works for single words or phrases)
- * afterwards - callback to execute upon completion of the Sign search. When called from the hotkey binding this opens
- *    the panel. The callback is an empty function when this is called by the NSControlTextDidEndEditingNotification watcher
- *
- */
-- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock;
-{
-    if (self.alreadySearching == YES)
-    {
-        //TODO: Figure out why NSControlTextDidEndEditingNotification is sent when the panel opens from hotkey
-        NSLog(@"Already searching for a sign");
-    }
-    else
-    {
-        self.alreadySearching = YES;
-        // Clean up the string: remove punctuation, etc.
-        NSString *keywords = [self.cleanupRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
-        
-        // Limit the search string's length to 100 characters
-        if (keywords.length > MAX_KEYWORD_LENGTH) {
-            keywords = [keywords substringToIndex:MAX_KEYWORD_LENGTH];
-        }
-        NSLog(@"Keywords: %@", keywords);
-
-        NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-
-        NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
-        [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             if ([responseObject count] != 0)
-             {
-                 NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@",
-                                       self.vidBaseURL,
-                                       [responseObject valueForKey:@"id"][0],
-                                       self.vidOptions];
-                 videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-                 [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
-                 callbackBlock(); // The only callback used currently is to properly open our panel
-
-             } else {
-                 [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
-                 [[self.myWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-             }
-             self.alreadySearching = NO;
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"%@", error);
-             [self sendNotificationWithTitle:@"Smartsign Error" details:[NSString stringWithFormat:@"%@", error]];
-             self.alreadySearching = NO;
-         }];
-    }
-}
-
-#pragma mark - NSUSerNotification methods
-/* Internal: shorthand method to send notifications.
- *
- * title - The Notification's title
- * details - The descriptive text of the notification
- */
-- (void)sendNotificationWithTitle:(NSString *)title details:(NSString *)details
-{
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-
-    notification.title = title;
-    notification.informativeText = details;
-    notification.soundName = NSUserNotificationDefaultSoundName;
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-}
-
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
-    return YES;
-}
-
-
-
 @end
