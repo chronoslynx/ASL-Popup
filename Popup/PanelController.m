@@ -8,10 +8,12 @@
 #define TIME_UNTIL_CLOSE 5
 
 #define SEARCH_INSET 17
+#define WEB_HEIGHT 240
+#define WEB_WIDTH 360
 #define WEB_INSET 17
 #define WEB_TOP_INSET 48
 
-#define POPUP_HEIGHT 400
+#define POPUP_HEIGHT 110
 #define PANEL_WIDTH 600
 #define MENU_ANIMATION_DURATION .5
 
@@ -23,6 +25,7 @@
 @synthesize delegate = _delegate;
 @synthesize searchField = _searchField;
 @synthesize textField = _textField;
+@synthesize webViews = _webViews;
 @synthesize smartsignHelper = _smartsignHelper;
 
 #pragma mark -
@@ -34,6 +37,7 @@
     {
         _delegate = delegate;
         _smartsignHelper = [SmartsignHelper shared];
+        _webViews = [[NSArray alloc] init];
     }
     return self;
 }
@@ -133,13 +137,6 @@
     textRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET * 3 - NSHeight(searchRect);
     textRect.origin.y = SEARCH_INSET;
 
-    NSRect webRect = [self.myWebView frame];
-    webRect.size.width = NSWidth([self.backgroundView bounds]) - WEB_INSET * 2;
-    webRect.origin.x = WEB_INSET;
-    webRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - WEB_TOP_INSET - NSHeight(searchRect);
-    webRect.origin.y = WEB_INSET;
-
-    [self.myWebView setFrame: webRect];
     
     if (NSIsEmptyRect(textRect))
     {
@@ -150,6 +147,17 @@
         [self.textField setFrame:textRect];
         [self.textField setHidden:NO];
     }
+    
+    // Place all of the WebViews
+    [_scrollView.subviews enumerateObjectsUsingBlock:^(WebView *webView, NSUInteger idx, BOOL *stop)
+    {
+         NSRect webRect = [webView frame];
+         webRect.size.width = WEB_WIDTH;
+         webRect.origin.x = WEB_INSET;
+         webRect.size.height = WEB_HEIGHT;
+         webRect.origin.y =WEB_INSET ;// idx*(WEB_INSET + WEB_HEIGHT);
+         [webView setFrame: webRect];
+    }];
 }
 
 #pragma mark - Keyboard
@@ -177,13 +185,28 @@
 #pragma mark - Public methods
 - (void)loadVideosFromArray:(NSArray *)urls
 {
-    [urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isMemberOfClass:[NSURLRequest class]])
-        {
-#pragma mark TODO: need to build a webview scroll the panel so we can fit each web view?
-            [_myWebView.mainFrame loadRequest:obj];
-        }
-    }];
+    if (urls.count > 0)
+    {
+        NSMutableArray *newWebViews = [[NSMutableArray alloc] init];
+        [urls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            
+            if ([obj isMemberOfClass:[NSURLRequest class]])
+            {
+    #pragma mark TODO: need to build a webview; scroll the panel so we can fit each web view?
+    //            [_myWebView.mainFrame loadRequest:obj];
+                WebView *webView = [[WebView alloc] init];
+                [[webView mainFrame] loadRequest:obj];
+    //            [[webView mainFrame] scro];
+                [newWebViews addObject: webView];
+            }
+        }];
+        _webViews = [NSArray arrayWithArray:newWebViews];
+        NSClipView *webContainerView = [[NSClipView alloc] init];
+        [webContainerView setSubviews:_webViews];
+        [_scrollView setContentView:webContainerView];
+        _scrollView.hidden = NO;
+        [_scrollView setNeedsDisplay:YES];
+    }
 }
 
 /* Internal: gets the rect or the entire popup panel. I believe */
@@ -222,7 +245,7 @@
 
     NSRect panelRect = [panel frame];
     panelRect.size.width = PANEL_WIDTH;
-    panelRect.size.height = POPUP_HEIGHT;
+    panelRect.size.height = POPUP_HEIGHT + _webViews.count * (WEB_HEIGHT + WEB_INSET);
     panelRect.origin.x = roundf(NSMidX(statusRect) - NSWidth(panelRect) / 2);
     panelRect.origin.y = NSMaxY(statusRect) - NSHeight(panelRect);
     
@@ -269,8 +292,12 @@
     [[[self window] animator] setAlphaValue:0];
     [NSAnimationContext endGrouping];
     
-    dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^
+    {
         [self.window orderOut:nil];
+        _webViews = [[NSArray alloc] init];
+        [_scrollView setContentView:[[NSClipView alloc] init]];
+        _scrollView.hidden = YES;
     });
 }
 @end

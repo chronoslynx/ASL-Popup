@@ -49,12 +49,12 @@
  */
 - (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock;
 {
-    if (self.alreadySearching == YES)
-    {
-        //TODO: Figure out why NSControlTextDidEndEditingNotification is sent when the panel opens from hotkey
-        NSLog(@"Already searching for a sign");
-    }
-    else
+    if (self.alreadySearching != YES)
+//    {
+//        //TODO: Figure out why NSControlTextDidEndEditingNotification is sent when the panel opens from hotkey
+//        NSLog(@"Already searching for a sign");
+//    }
+//    else
     {
         self.alreadySearching = YES;
         // Clean up the string: remove punctuation, etc.
