@@ -31,7 +31,7 @@
         self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])" options:NSRegularExpressionCaseInsensitive error:&error];
         self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
         self.vidBaseURL = @"http://www.youtube.com/embed/";
-        self.vidOptions = @"?autoplay=1";
+        self.vidOptions = @"?rel=0";
         self.alreadySearching = NO;
         self.httpManager = [AFHTTPRequestOperationManager manager];
 
@@ -50,11 +50,6 @@
 - (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock;
 {
     if (self.alreadySearching != YES)
-//    {
-//        //TODO: Figure out why NSControlTextDidEndEditingNotification is sent when the panel opens from hotkey
-//        NSLog(@"Already searching for a sign");
-//    }
-//    else
     {
         self.alreadySearching = YES;
         // Clean up the string: remove punctuation, etc.
@@ -64,27 +59,24 @@
         if (keywords.length > MAX_KEYWORD_LENGTH) {
             keywords = [keywords substringToIndex:MAX_KEYWORD_LENGTH];
         }
-        NSLog(@"Keywords: %@", keywords);
         
         NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         
         NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
         [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
-             NSMutableArray *videoUrls = [[NSMutableArray alloc] init];
              if ([responseObject count] != 0)
              {
-//                 NSLog(@"%@", responseObject);
-                 [responseObject enumerateObjectsUsingBlock:^(NSString *videoID, NSUInteger idx, BOOL *stop) {
-                     NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@", self.vidBaseURL,[responseObject valueForKey:@"id"][0], self.vidOptions];
+                 NSMutableArray *videoUrls = [[NSMutableArray alloc] init];
+                 [responseObject enumerateObjectsUsingBlock:^(NSDictionary *video, NSUInteger idx, BOOL *stop) {
+                     NSString *videoUrl = [NSString stringWithFormat:@"%@%@%@", self.vidBaseURL,[video valueForKey:@"id"], self.vidOptions];
                      videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
                      [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  }];
+                 callbackBlock(videoUrls);
              } else {
                  [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
-                 [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
              }
-             callbackBlock(videoUrls); //TODO: callbackBlock should take an array of videos to present.
              self.alreadySearching = NO;
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"%@", error);
