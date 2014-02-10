@@ -10,7 +10,7 @@
 #define SEARCH_INSET 17
 #define WEB_HEIGHT 240
 #define WEB_INSET 5
-#define WEB_SEARCH_WIDTH 0
+#define WEB_RIGHT_INSET 17
 
 #define POPUP_HEIGHT 110
 #define PANEL_WIDTH 430
@@ -185,7 +185,7 @@
         // Build each WebView and place them in the ContentView's frame
         [urls enumerateObjectsUsingBlock:^(NSURLRequest *obj, NSUInteger idx, BOOL *stop)
         {
-            NSRect webRect = NSMakeRect(WEB_INSET, idx*(WEB_INSET + WEB_HEIGHT), scrollRect.size.width, WEB_HEIGHT);
+            NSRect webRect = NSMakeRect(WEB_INSET, idx*(WEB_INSET + WEB_HEIGHT), scrollRect.size.width - WEB_RIGHT_INSET, WEB_HEIGHT);
             WebView *webView = [[WebView alloc] initWithFrame:webRect];
             [webView setFrame: webRect];
             [webView.mainFrame.frameView setAllowsScrolling:NO];
