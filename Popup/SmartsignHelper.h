@@ -17,10 +17,12 @@
 @property NSString *searchBaseURL;
 @property NSString *vidBaseURL;
 @property NSString *vidOptions;
+@property NSString *sandboxPath;
 @property AFHTTPRequestOperationManager *httpManager;
 
 
 + (SmartsignHelper *) shared;
+- (void)logSearchToFile:(NSString *)search;
 - (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock; //andOpen:(BOOL)bringToFront;
 
 

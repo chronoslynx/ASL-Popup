@@ -4,7 +4,7 @@
 //
 //  Created by Tim Swihart on 2/10/14.
 //
-//
+//  Flipped NSView for use in a NSScrollView
 
 #import "FlippedView.h"
 

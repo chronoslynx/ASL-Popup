@@ -154,7 +154,7 @@
     self.hasActivePanel = NO;
 }
 
-/* Internal: triggered by the NSControlText{*}Notification. Runs the Sign search from the search box */
+/* Internal: triggered by the NSControlTextDidEndEditingNotification. Runs the Sign search from the search box's value */
 - (void)runSearch
 {
     NSString *searchString = [self.searchField stringValue];
@@ -198,10 +198,6 @@
         [_scrollView.documentView setFrame:NSMakeRect(0, 0, scrollRect.size.width - 2*WEB_INSET, _webViews.count * WEB_HEIGHT+ (_webViews.count - 1) * WEB_INSET)];
         [_scrollView.documentView setSubviews:_webViews];
         
-        // Scroll to the top of the DocumentView
-//        [_scrollView.documentView scrollPoint:NSMakePoint(0,0)];
-//        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
-//        [_scrollView.verticalScroller setFloatValue:0.0];
         [_scrollView setNeedsDisplay:YES];
 
     }

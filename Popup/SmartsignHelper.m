@@ -34,9 +34,34 @@
         self.vidOptions = @"?rel=0";
         self.alreadySearching = NO;
         self.httpManager = [AFHTTPRequestOperationManager manager];
-
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        self.sandboxPath = [paths objectAtIndex:0];
     }
     return self;
+}
+
+/* Internal: given a search string to log, log it to our log file
+ *
+ * search - The string to log
+ *
+ * TODO: don't open the file every time. While this allows automatic changing of log file each day, it's very non-optimal
+ */
+- (void)logSearchToFile:(NSString *)search
+{
+    NSDateFormatter *formatter;
+    NSString        *dateString;
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    dateString = [formatter stringFromDate:[NSDate date]];
+    NSString* logLine = [NSString stringWithFormat:@"%@\n", search];
+    
+    NSError* error;
+    BOOL success = [logLine writeToFile:[NSString stringWithFormat:@"%@/%@.txt", self.sandboxPath, dateString] atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (!success)
+    {
+        NSLog(@"%@", error);
+    }
 }
 
 /* Internal: given a string containing keywords search for the ASL translation
@@ -74,6 +99,7 @@
                      [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  }];
                  callbackBlock(videoUrls);
+                 [self logSearchToFile:text];
              } else {
                  [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
              }
