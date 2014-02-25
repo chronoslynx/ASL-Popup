@@ -23,10 +23,10 @@
   self = [super init];
   if (self) {
     NSError* error;
-    _cleanupRegex = [NSRegularExpression
-        regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])"
-                             options:NSRegularExpressionCaseInsensitive
-                               error:&error];
+    _cleanupRegex =
+        [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])"
+                                                  options:NSRegularExpressionCaseInsensitive
+                                                    error:&error];
     _searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
     _vidBaseURL = @"http://www.youtube.com/embed/";
     _vidOptions = @"?rel=0";
@@ -43,10 +43,8 @@
  * reopen the file every time...
  */
 - (void)ensureLogDirectory {
-  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                       NSUserDomainMask, YES);
-  _logFolder =
-      [NSString stringWithFormat:@"%@/SmartSign", [paths objectAtIndex:0]];
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  _logFolder = [NSString stringWithFormat:@"%@/SmartSign", [paths objectAtIndex:0]];
   _logPrefix = @"searchlog-";
 
   BOOL isDir;
@@ -76,21 +74,16 @@
 
   dateString = [formatter stringFromDate:[NSDate date]];
   NSString* logFilePath =
-      [NSString stringWithFormat:@"%@/%@-%@.txt", self.logFolder,
-                                 self.logPrefix, dateString];
+      [NSString stringWithFormat:@"%@/%@%@.txt", self.logFolder, self.logPrefix, dateString];
   NSString* logLine = [NSString stringWithFormat:@"%@\n", search];
-  NSFileHandle* logFileHandle =
-      [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+  NSFileHandle* logFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
   if (logFileHandle == nil) {
-    [[NSFileManager defaultManager] createFileAtPath:logFilePath
-                                            contents:nil
-                                          attributes:nil];
+    [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:nil attributes:nil];
     logFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
   } else {
-    [logFileHandle
-        truncateFileAtOffset:[logFileHandle seekToEndOfFile]];  // Seek to the
-                                                                // end of the
-                                                                // file
+    [logFileHandle truncateFileAtOffset:[logFileHandle seekToEndOfFile]];  // Seek to the
+                                                                           // end of the
+                                                                           // file
   }
 
   [logFileHandle writeData:[logLine dataUsingEncoding:NSUTF8StringEncoding]];
@@ -112,22 +105,21 @@
   if (self.alreadySearching != YES) {
     self.alreadySearching = YES;
     // Clean up the string: remove punctuation, etc.
-    NSString* keywords = [self.cleanupRegex
-        stringByReplacingMatchesInString:text
-                                 options:0
-                                   range:NSMakeRange(0, [text length])
-                            withTemplate:@""];
+    NSString* keywords =
+        [self.cleanupRegex stringByReplacingMatchesInString:text
+                                                    options:0
+                                                      range:NSMakeRange(0, [text length])
+                                               withTemplate:@""];
 
     // Limit the search string's length to 100 characters
     if (keywords.length > MAX_KEYWORD_LENGTH) {
       keywords = [keywords substringToIndex:MAX_KEYWORD_LENGTH];
     }
 
-    NSString* escapedKeywords = [keywords
-        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* escapedKeywords =
+        [keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    NSString* searchUrl = [NSString
-        stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
+    NSString* searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
 
         [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
         {
@@ -137,25 +129,18 @@
                  {
                    NSString* videoUrl =
                        [NSString stringWithFormat:@"%@%@%@", self.vidBaseURL,
-                                                  [video valueForKey:@"id"],
-                                                  self.vidOptions];
+                                                  [video valueForKey:@"id"], self.vidOptions];
                    videoUrl =
-                       [videoUrl stringByAddingPercentEscapesUsingEncoding:
-                                     NSUTF8StringEncoding];
+                       [videoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                    [videoUrls
-                       addObject:
-                           [NSURLRequest
-                               requestWithURL:[NSURL URLWithString:videoUrl]]];
+                       addObject:[NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  }];
                  [self logSearchToFile:text];
                  callbackBlock(videoUrls);
           } else {
-            [self
-                sendNotificationWithTitle:@"No ASL translation found"
-                                  details:[NSString
-                                              stringWithFormat:
-                                                  @"No video found for \"%@\"",
-                                                  keywords]];
+            [self sendNotificationWithTitle:@"No ASL translation found"
+                                    details:[NSString stringWithFormat:@"No video found for \"%@\"",
+                                                                       keywords]];
           }
           self.alreadySearching = NO;
         }
@@ -181,8 +166,7 @@
   notification.title = title;
   notification.informativeText = details;
   notification.soundName = NSUserNotificationDefaultSoundName;
-  [[NSUserNotificationCenter defaultUserNotificationCenter]
-      deliverNotification:notification];
+  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter*)center
