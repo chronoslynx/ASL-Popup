@@ -13,17 +13,20 @@
 @interface SmartsignHelper : NSObject
 
 @property BOOL alreadySearching;
-@property NSRegularExpression *cleanupRegex;
-@property NSString *searchBaseURL;
-@property NSString *vidBaseURL;
-@property NSString *vidOptions;
-@property NSString *sandboxPath;
-@property AFHTTPRequestOperationManager *httpManager;
+@property (readonly, weak) NSRegularExpression *cleanupRegex;
+@property (readonly, weak) NSString *searchBaseURL;
+@property (readonly, weak) NSString *vidBaseURL;
+@property (readonly, weak) NSString *vidOptions;
+@property (readonly, weak) NSString *logFolder;
+@property (readonly, weak) NSString *logPrefix;
+//@property NSFileHandle *logFileHandle;
+@property (readonly, weak) AFHTTPRequestOperationManager *httpManager;
 
 
 + (SmartsignHelper *) shared;
+- (void)ensureLogDirectory;
 - (void)logSearchToFile:(NSString *)search;
-- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock; //andOpen:(BOOL)bringToFront;
+- (void)findSignForText:(NSString *)text afterwards:(void(^)())callbackBlock;
 
 
 @end

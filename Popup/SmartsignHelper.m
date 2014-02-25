@@ -14,6 +14,14 @@
 
 @implementation SmartsignHelper
 
+@synthesize cleanupRegex = _cleanupRegex;
+@synthesize searchBaseURL = _searchBaseURL;
+@synthesize vidBaseURL = _vidBaseURL;
+@synthesize vidOptions = _vidOptions;
+@synthesize logFolder = _logFolder;
+@synthesize logPrefix = _logPrefix;
+
+
 + (SmartsignHelper *) shared
 {
     static dispatch_once_t onceToken;
@@ -28,17 +36,36 @@
     self = [super init];
     if (self) {
         NSError *error;
-        self.cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])" options:NSRegularExpressionCaseInsensitive error:&error];
-        self.searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
-        self.vidBaseURL = @"http://www.youtube.com/embed/";
-        self.vidOptions = @"?rel=0";
-        self.alreadySearching = NO;
-        self.httpManager = [AFHTTPRequestOperationManager manager];
+        _cleanupRegex = [NSRegularExpression regularExpressionWithPattern:@"('(s|d)|[.,?!\"';:\\-~])" options:NSRegularExpressionCaseInsensitive error:&error];
+        _searchBaseURL = @"http://smartsign.imtc.gatech.edu/videos?keywords=";
+        _vidBaseURL = @"http://www.youtube.com/embed/";
+        _vidOptions = @"?rel=0";
+        _alreadySearching = NO;
+        _httpManager = [AFHTTPRequestOperationManager manager];
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        self.sandboxPath = [paths objectAtIndex:0];
+        [self ensureLogDirectory];
     }
     return self;
+}
+
+/* Internal: ensure that the logging directory exists
+ * TODO: figure how a clean way to swap log files every day while not having to reopen the file every time...
+ */
+- (void)ensureLogDirectory
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    _logFolder = [NSString stringWithFormat:@"%@/SmartSign", [paths objectAtIndex:0]];
+    _logPrefix = @"searchlog-";
+    
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:self.logFolder isDirectory:&isDir])
+    {
+        if(![fileManager createDirectoryAtPath:self.logFolder withIntermediateDirectories:YES attributes:nil error:NULL])
+        {
+            NSLog(@"Error: failed to create folder %@", self.logFolder);
+        }
+    }
 }
 
 /* Internal: given a search string to log, log it to our log file
@@ -53,15 +80,13 @@
     NSString        *dateString;
     formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy"];
+    
     dateString = [formatter stringFromDate:[NSDate date]];
     NSString* logLine = [NSString stringWithFormat:@"%@\n", search];
-    
-    NSError* error;
-    BOOL success = [logLine writeToFile:[NSString stringWithFormat:@"%@/%@.txt", self.sandboxPath, dateString] atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (!success)
-    {
-        NSLog(@"%@", error);
-    }
+    NSFileHandle *logFileHandle = [NSFileHandle fileHandleForWritingAtPath:[NSString stringWithFormat:@"%@/%@-%@.txt", self.logFolder, self.logPrefix, dateString]];
+    [logFileHandle truncateFileAtOffset:[logFileHandle seekToEndOfFile]]; // Seek to the end of the file
+    [logFileHandle writeData:[logLine dataUsingEncoding:NSUTF8StringEncoding]];
+    [logFileHandle closeFile];
 }
 
 /* Internal: given a string containing keywords search for the ASL translation
@@ -98,8 +123,8 @@
                      videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
                      [videoUrls addObject: [NSURLRequest requestWithURL:[NSURL URLWithString:videoUrl]]];
                  }];
-                 callbackBlock(videoUrls);
                  [self logSearchToFile:text];
+                 callbackBlock(videoUrls);
              } else {
                  [self sendNotificationWithTitle:@"No ASL translation found" details:[NSString stringWithFormat:@"No video found for \"%@\"", keywords]];
              }
