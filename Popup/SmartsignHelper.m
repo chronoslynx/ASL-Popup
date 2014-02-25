@@ -81,7 +81,7 @@
     if (logFileHandle == nil)
     {
         [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:nil attributes:nil];
-        output = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+        logFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
     } else {
         [logFileHandle truncateFileAtOffset:[logFileHandle seekToEndOfFile]]; // Seek to the end of the file
     }
