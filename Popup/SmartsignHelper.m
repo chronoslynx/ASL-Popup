@@ -14,13 +14,6 @@
 
 @implementation SmartsignHelper
 
-@synthesize cleanupRegex = _cleanupRegex;
-@synthesize searchBaseURL = _searchBaseURL;
-@synthesize vidBaseURL = _vidBaseURL;
-@synthesize vidOptions = _vidOptions;
-@synthesize logFolder = _logFolder;
-@synthesize logPrefix = _logPrefix;
-
 
 + (SmartsignHelper *) shared
 {
