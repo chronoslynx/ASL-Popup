@@ -13,14 +13,14 @@
 @interface SmartsignHelper : NSObject
 
 @property BOOL alreadySearching;
-@property (readonly, weak) NSRegularExpression *cleanupRegex;
-@property (readonly, weak) NSString *searchBaseURL;
-@property (readonly, weak) NSString *vidBaseURL;
-@property (readonly, weak) NSString *vidOptions;
-@property (readonly, weak) NSString *logFolder;
-@property (readonly, weak) NSString *logPrefix;
+@property (readonly) NSRegularExpression *cleanupRegex;
+@property (readonly) NSString *searchBaseURL;
+@property (readonly) NSString *vidBaseURL;
+@property (readonly) NSString *vidOptions;
+@property (readonly) NSString *logFolder;
+@property (readonly) NSString *logPrefix;
 //@property NSFileHandle *logFileHandle;
-@property (readonly, weak) AFHTTPRequestOperationManager *httpManager;
+@property (readonly) AFHTTPRequestOperationManager *httpManager;
 
 
 + (SmartsignHelper *) shared;

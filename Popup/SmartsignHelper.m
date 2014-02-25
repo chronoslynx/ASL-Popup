@@ -75,9 +75,17 @@
     [formatter setDateFormat:@"dd-MM-yyyy"];
     
     dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *logFilePath = [NSString stringWithFormat:@"%@/%@-%@.txt", self.logFolder, self.logPrefix, dateString];
     NSString* logLine = [NSString stringWithFormat:@"%@\n", search];
-    NSFileHandle *logFileHandle = [NSFileHandle fileHandleForWritingAtPath:[NSString stringWithFormat:@"%@/%@-%@.txt", self.logFolder, self.logPrefix, dateString]];
-    [logFileHandle truncateFileAtOffset:[logFileHandle seekToEndOfFile]]; // Seek to the end of the file
+    NSFileHandle *logFileHandle = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+    if (logFileHandle == nil)
+    {
+        [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:nil attributes:nil];
+        output = [NSFileHandle fileHandleForWritingAtPath:logFilePath];
+    } else {
+        [logFileHandle truncateFileAtOffset:[logFileHandle seekToEndOfFile]]; // Seek to the end of the file
+    }
+    
     [logFileHandle writeData:[logLine dataUsingEncoding:NSUTF8StringEncoding]];
     [logFileHandle closeFile];
 }
@@ -106,6 +114,7 @@
         NSString *escapedKeywords = [keywords stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         
         NSString *searchUrl = [NSString stringWithFormat:@"%@%@", self.searchBaseURL, escapedKeywords];
+
         [self.httpManager GET:searchUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              if ([responseObject count] != 0)
