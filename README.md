@@ -1,21 +1,20 @@
-# ASL Popup
-Version of my text->ASL app but in a status bar popup. This allows videos to pop up anywhere, including over fullscreen apps.
+#ASL Popup
+The SmartSign Mac application. A menubar application that allows users to search for a word through Georgia Tech's Center for Accesible Technology in Sign's (CATS) text->ASL database and then play the resulting sign.
 
 ## Current Issues
 - first time the hotkey is issued the video isn't loaded
-- NSTextDidEndEditingNotification is fired when the video is opened via hotkey
 
 ## Todos
-- Video/playlist looping
-- Dynamically building a playlist for sentences. E.g.:
-  - "The father loves the child." would queue the videos "FATHER", "LOVE", "CHILD" (as an SVO example)
+- redesign how the interface works when multiple videos are found
+- give option for configuring hotkey
+- give option for Menubar/normal application (will take quite a bit of work)
 
 
 
-# Popup
+## Popup
 
 Popup project is a demo with custom popover window appearing from the icon in the Mac OS X status bar.
 
-# License
+## License
 
 Popup is licensed under the BSD license.
