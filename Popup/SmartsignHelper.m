@@ -138,16 +138,16 @@
                  [self logSearchToFile:text];
                  callbackBlock(videoUrls);
           } else {
-            [self sendNotificationWithTitle:@"No ASL translation found"
-                                    details:[NSString stringWithFormat:@"No video found for \"%@\"",
-                                                                       keywords]];
+            NSString* message =
+                [NSString stringWithFormat:@"No video found for \"%@\" :(", keywords];
+            [self sendNotificationWithTitle:@"SmartSign" details:message];
           }
           self.alreadySearching = NO;
         }
   failure:
     ^(AFHTTPRequestOperation * operation, NSError * error) {
       NSLog(@"%@", error);
-      [self sendNotificationWithTitle:@"Smartsign Error"
+      [self sendNotificationWithTitle:@"Smartsign"
                               details:[NSString stringWithFormat:@"%@", error]];
       self.alreadySearching = NO;
     }];
