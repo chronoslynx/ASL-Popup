@@ -2,6 +2,7 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 #import "MenubarController.h"
+#import "SettingsViewController.h"
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
@@ -37,6 +38,8 @@
     _delegate = delegate;
     _smartsignHelper = [SmartsignHelper shared];
     _webViews = [[NSArray alloc] init];
+    _settingsWindowController = nil;
+    _settingsController = nil;
   }
   return self;
 }
@@ -296,6 +299,12 @@
 /*
  *
  */
-- (IBAction)showSettings:(id)sender {
+
+- (IBAction)showSettingsWindow:(id)sender {
+  _settingsController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
+  _settingsWindowController = [[NSWindowController alloc] init];
+  [_settingsWindowController.window.contentView addSubview:[_settingsController view]];
+  NSLog(@"%@", _settingsWindowController.window.contentView);
+  [_settingsWindowController showWindow:nil];
 }
 @end

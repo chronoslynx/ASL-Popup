@@ -8,17 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1166DF7B18886D3E0017F900 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1166DF7A18886D3E0017F900 /* WebKit.framework */; };
-		2E097B3A189800A3006842CF /* DDHotKeyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */; };
-		2E097B3B189800A3006842CF /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B35189800A3006842CF /* DDHotKeyCenter.m */; };
-		2E097B3C189800A3006842CF /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B37189800A3006842CF /* DDHotKeyTextField.m */; };
-		2E097B3D189800A3006842CF /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B39189800A3006842CF /* DDHotKeyUtilities.m */; };
 		2E097B46189800B5006842CF /* DJRKeyboardEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B3F189800B5006842CF /* DJRKeyboardEvents.m */; };
 		2E097B47189800B5006842CF /* DJRKeyboardTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B41189800B5006842CF /* DJRKeyboardTools.m */; };
 		2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B43189800B5006842CF /* DJRPasteboardProxy.m */; };
 		2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */; };
 		2E097B4D1898016B006842CF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E097B4C1898016B006842CF /* Podfile */; };
 		2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */; };
-		2E2C453F18C0EC4F005534DB /* SettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2C453E18C0EC4F005534DB /* SettingsWindow.xib */; };
 		2E2DEED018C0FC6B00393F9D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC318C0FC6B00393F9D /* .gitignore */; };
 		2E2DEED118C0FC6B00393F9D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC418C0FC6B00393F9D /* LICENSE */; };
 		2E2DEED218C0FC6B00393F9D /* MASShortcut+Monitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC618C0FC6B00393F9D /* MASShortcut+Monitoring.m */; };
@@ -27,6 +22,8 @@
 		2E2DEED518C0FC6B00393F9D /* MASShortcutView+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEECC18C0FC6B00393F9D /* MASShortcutView+UserDefaults.m */; };
 		2E2DEED618C0FC6B00393F9D /* MASShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEECE18C0FC6B00393F9D /* MASShortcutView.m */; };
 		2E2DEED718C0FC6B00393F9D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEECF18C0FC6B00393F9D /* README.md */; };
+		2E2DEEDB18C102BB00393F9D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEED918C102BB00393F9D /* SettingsViewController.m */; };
+		2E2DEEDC18C102BB00393F9D /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEDA18C102BB00393F9D /* SettingsView.xib */; };
 		2E966863189801BA00866C82 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E966862189801BA00866C82 /* Carbon.framework */; };
 		2EE57ACA18A140EA004C78A4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EE57AC918A140EA004C78A4 /* README.md */; };
 		2EFF0A9A18A96DEF00B80C0B /* FlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF0A9918A96DEF00B80C0B /* FlippedView.m */; };
@@ -49,14 +46,6 @@
 
 /* Begin PBXFileReference section */
 		1166DF7A18886D3E0017F900 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		2E097B32189800A3006842CF /* DDHotKeyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyAppDelegate.h; sourceTree = "<group>"; };
-		2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyAppDelegate.m; sourceTree = "<group>"; };
-		2E097B34189800A3006842CF /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
-		2E097B35189800A3006842CF /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
-		2E097B36189800A3006842CF /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
-		2E097B37189800A3006842CF /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
-		2E097B38189800A3006842CF /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
-		2E097B39189800A3006842CF /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
 		2E097B3E189800B5006842CF /* DJRKeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardEvents.h; sourceTree = "<group>"; };
 		2E097B3F189800B5006842CF /* DJRKeyboardEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRKeyboardEvents.m; sourceTree = "<group>"; };
 		2E097B40189800B5006842CF /* DJRKeyboardTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardTools.h; sourceTree = "<group>"; };
@@ -68,7 +57,6 @@
 		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartsignHelper.h; sourceTree = "<group>"; };
 		2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartsignHelper.m; sourceTree = "<group>"; };
-		2E2C453E18C0EC4F005534DB /* SettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsWindow.xib; sourceTree = "<group>"; };
 		2E2DEEC318C0FC6B00393F9D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		2E2DEEC418C0FC6B00393F9D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2E2DEEC518C0FC6B00393F9D /* MASShortcut+Monitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcut+Monitoring.h"; sourceTree = "<group>"; };
@@ -82,6 +70,9 @@
 		2E2DEECD18C0FC6B00393F9D /* MASShortcutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcutView.h; sourceTree = "<group>"; };
 		2E2DEECE18C0FC6B00393F9D /* MASShortcutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcutView.m; sourceTree = "<group>"; };
 		2E2DEECF18C0FC6B00393F9D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2E2DEED818C102BB00393F9D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2E2DEED918C102BB00393F9D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2E2DEEDA18C102BB00393F9D /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsView.xib; path = Popup/SettingsView.xib; sourceTree = "<group>"; };
 		2E966862189801BA00866C82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		2EE01AEC18C0DEA800133C17 /* SmartSign Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "SmartSign Mac.entitlements"; sourceTree = "<group>"; };
 		2EE57AC918A140EA004C78A4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -132,21 +123,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E097B31189800A3006842CF /* DDHotKey */ = {
-			isa = PBXGroup;
-			children = (
-				2E097B32189800A3006842CF /* DDHotKeyAppDelegate.h */,
-				2E097B33189800A3006842CF /* DDHotKeyAppDelegate.m */,
-				2E097B34189800A3006842CF /* DDHotKeyCenter.h */,
-				2E097B35189800A3006842CF /* DDHotKeyCenter.m */,
-				2E097B36189800A3006842CF /* DDHotKeyTextField.h */,
-				2E097B37189800A3006842CF /* DDHotKeyTextField.m */,
-				2E097B38189800A3006842CF /* DDHotKeyUtilities.h */,
-				2E097B39189800A3006842CF /* DDHotKeyUtilities.m */,
-			);
-			path = DDHotKey;
-			sourceTree = "<group>";
-		};
 		2E097B4A189800BA006842CF /* DJRKeyboard* */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,14 +162,14 @@
 				2E2DEECE18C0FC6B00393F9D /* MASShortcutView.m */,
 				2E2DEECF18C0FC6B00393F9D /* README.md */,
 			);
-			path = MASShortcut;
+			name = MASShortcut;
+			path = ../MASShortcut;
 			sourceTree = "<group>";
 		};
 		DD4F7BF913C30F9F00825C6E = {
 			isa = PBXGroup;
 			children = (
 				2EE01AEC18C0DEA800133C17 /* SmartSign Mac.entitlements */,
-				2E2DEEC218C0FC6B00393F9D /* MASShortcut */,
 				2EE57AC918A140EA004C78A4 /* README.md */,
 				2E097B4C1898016B006842CF /* Podfile */,
 				DD4F7C0E13C30F9F00825C6E /* Sources */,
@@ -232,9 +208,9 @@
 			children = (
 				2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */,
 				2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */,
+				2E2DEEC218C0FC6B00393F9D /* MASShortcut */,
 				2E097B4A189800BA006842CF /* DJRKeyboard* */,
 				2E097B4B189800C5006842CF /* Categories */,
-				2E097B31189800A3006842CF /* DDHotKey */,
 				DD4F7C2613C311DF00825C6E /* Controllers */,
 				DD4F7C3913C317EC00825C6E /* Views */,
 				DD4F7C0F13C30F9F00825C6E /* Supporting Files */,
@@ -255,6 +231,8 @@
 		DD4F7C2613C311DF00825C6E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2E2DEED818C102BB00393F9D /* SettingsViewController.h */,
+				2E2DEED918C102BB00393F9D /* SettingsViewController.m */,
 				DD4F7C1A13C30F9F00825C6E /* ApplicationDelegate.h */,
 				DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */,
 				DD4F7C3613C317A500825C6E /* MenubarController.h */,
@@ -277,7 +255,7 @@
 		DD4F7C2913C3124300825C6E /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
-				2E2C453E18C0EC4F005534DB /* SettingsWindow.xib */,
+				2E2DEEDA18C102BB00393F9D /* SettingsView.xib */,
 				DD4F7C1D13C30F9F00825C6E /* MainMenu.xib */,
 				DD4F7C4013C31B4A00825C6E /* Panel.xib */,
 			);
@@ -371,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E2DEEDC18C102BB00393F9D /* SettingsView.xib in Resources */,
 				2E2DEED018C0FC6B00393F9D /* .gitignore in Resources */,
 				DD4F7C1F13C30F9F00825C6E /* MainMenu.xib in Resources */,
 				DD4F7C4113C31B4A00825C6E /* Panel.xib in Resources */,
@@ -379,7 +358,6 @@
 				2E2DEED118C0FC6B00393F9D /* LICENSE in Resources */,
 				2E2DEED718C0FC6B00393F9D /* README.md in Resources */,
 				DDF4EFAC16C80A510044D141 /* Status@2x.png in Resources */,
-				2E2C453F18C0EC4F005534DB /* SettingsWindow.xib in Resources */,
 				2E097B4D1898016B006842CF /* Podfile in Resources */,
 				2EE57ACA18A140EA004C78A4 /* README.md in Resources */,
 				DDF4EFAE16C80AD30044D141 /* StatusHighlighted@2x.png in Resources */,
@@ -428,15 +406,13 @@
 			files = (
 				2E097B46189800B5006842CF /* DJRKeyboardEvents.m in Sources */,
 				2E2DEED418C0FC6B00393F9D /* MASShortcut.m in Sources */,
-				2E097B3A189800A3006842CF /* DDHotKeyAppDelegate.m in Sources */,
 				2E2DEED318C0FC6B00393F9D /* MASShortcut+UserDefaults.m in Sources */,
-				2E097B3C189800A3006842CF /* DDHotKeyTextField.m in Sources */,
 				DD4F7C1513C30F9F00825C6E /* main.m in Sources */,
 				2EFF0A9A18A96DEF00B80C0B /* FlippedView.m in Sources */,
 				2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */,
-				2E097B3D189800A3006842CF /* DDHotKeyUtilities.m in Sources */,
 				DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */,
 				DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */,
+				2E2DEEDB18C102BB00393F9D /* SettingsViewController.m in Sources */,
 				DD4F7C3C13C3180800825C6E /* StatusItemView.m in Sources */,
 				2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */,
 				2E2DEED218C0FC6B00393F9D /* MASShortcut+Monitoring.m in Sources */,
@@ -446,7 +422,6 @@
 				DD4F7C4413C31BD200825C6E /* Panel.m in Sources */,
 				2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */,
 				2E2DEED518C0FC6B00393F9D /* MASShortcutView+UserDefaults.m in Sources */,
-				2E097B3B189800A3006842CF /* DDHotKeyCenter.m in Sources */,
 				DD4F7C4713C3208500825C6E /* BackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
