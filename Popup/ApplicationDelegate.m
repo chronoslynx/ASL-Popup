@@ -3,6 +3,8 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "SmartsignHelper.h"
 
+NSString *const SmartSignPreferenceKeyShortcut = @"SmartSignKeyboardShortcut";
+
 @implementation ApplicationDelegate
 
 @synthesize panelController = _panelController;

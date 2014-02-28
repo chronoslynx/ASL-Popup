@@ -31,6 +31,7 @@
 //@property (strong) IBOutlet WebView *myWebView;
 @property(nonatomic, strong) NSArray *webViews;
 @property(strong) IBOutlet NSScrollView *scrollView;
+@property (strong) IBOutlet NSButton *settingsButton;
 
 @property(nonatomic) BOOL hasActivePanel;
 @property(nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;

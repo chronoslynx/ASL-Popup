@@ -8,6 +8,8 @@
 #define TIME_UNTIL_CLOSE 5
 
 #define SEARCH_INSET 17
+#define SETTINGS_BUTTON_INSET 12
+
 #define WEB_HEIGHT 240
 #define WEB_INSET 5
 #define WEB_RIGHT_INSET 17
@@ -56,6 +58,7 @@
   [panel setLevel:NSPopUpMenuWindowLevel];
   [panel setOpaque:NO];
   [panel setBackgroundColor:[NSColor clearColor]];
+  _settingsButton.title = @"\u2699";
 
   // Run the ASL search when editing done
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -108,7 +111,8 @@
   self.backgroundView.arrowX = panelX;
 
   NSRect searchRect = [self.searchField frame];
-  searchRect.size.width = NSWidth([self.backgroundView bounds]) - SEARCH_INSET * 2;
+  searchRect.size.width =
+      NSWidth([self.backgroundView bounds]) - NSHeight(searchRect) * 2 - SEARCH_INSET;
   searchRect.origin.x = SEARCH_INSET;
   searchRect.origin.y =
       NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET - NSHeight(searchRect);
@@ -120,8 +124,10 @@
     [self.searchField setHidden:NO];
   }
 
+  /* Place the textbox */
   NSRect textRect = [self.textField frame];
-  textRect.size.width = NSWidth([self.backgroundView bounds]) - SEARCH_INSET * 2;
+  textRect.size.width =
+      searchRect.size.width;  // NSWidth([self.backgroundView bounds]) - SEARCH_INSET * 2;
   textRect.origin.x = SEARCH_INSET;
   textRect.size.height = NSHeight([self.backgroundView bounds]) - ARROW_HEIGHT - SEARCH_INSET * 3 -
                          NSHeight(searchRect);
@@ -132,6 +138,20 @@
   } else {
     [self.textField setFrame:textRect];
     [self.textField setHidden:NO];
+  }
+
+  /* Place settings button */
+  NSRect settingsRect = [_settingsButton frame];
+  settingsRect.size.width = 24;
+  settingsRect.size.height = 24;
+  settingsRect.origin.x = searchRect.origin.x + searchRect.size.width + SETTINGS_BUTTON_INSET / 2;
+  settingsRect.origin.y = searchRect.origin.y;
+
+  if (NSIsEmptyRect(settingsRect)) {
+    [self.settingsButton setHidden:YES];
+  } else {
+    [self.settingsButton setFrame:settingsRect];
+    [self.settingsButton setHidden:NO];
   }
 }
 
@@ -271,5 +291,11 @@
     _webViews = [[NSArray alloc] init];
     [_scrollView.documentView setSubviews:_webViews];
   });
+}
+
+/*
+ *
+ */
+- (IBAction)showSettings:(id)sender {
 }
 @end
