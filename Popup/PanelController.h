@@ -1,9 +1,11 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
-#import "DDHotKeyCenter.h"
 #import "SmartsignHelper.h"
+#import "SettingsViewController.h"
 
 #import <WebKit/WebKit.h>
+
+@class MASShortcutView;
 
 @class PanelController;
 
@@ -28,10 +30,11 @@
 @property(nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property(nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
 @property(nonatomic, unsafe_unretained) IBOutlet NSTextField *textField;
-//@property (strong) IBOutlet WebView *myWebView;
 @property(nonatomic, strong) NSArray *webViews;
 @property(strong) IBOutlet NSScrollView *scrollView;
-@property (strong) IBOutlet NSButton *settingsButton;
+@property(strong) IBOutlet NSButton *settingsButton;
+@property(readwrite, strong) NSWindowController *settingsWindowController;
+@property(strong) SettingsViewController *settingsController;
 
 @property(nonatomic) BOOL hasActivePanel;
 @property(nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;
