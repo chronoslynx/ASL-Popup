@@ -30,7 +30,7 @@
                     <searchField focusRingType="none" verticalHuggingPriority="750" id="18">
                         <rect key="frame" x="20" y="228" width="219" height="22"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="" usesSingleLineMode="YES" bezelStyle="round" id="19">
+                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="SMARTSign-Assistant" usesSingleLineMode="YES" bezelStyle="round" id="19">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -73,7 +73,7 @@
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="tNe-sD-uPM">
                         <rect key="frame" x="256" y="223" width="29" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="2D07E7F9-BB7E-4A97-AFC5-37B93B799597" imagePosition="only" alignment="center" inset="2" id="nOg-qp-br8">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="DDBC4104-DF60-4719-B036-19691FAF7DC0" imagePosition="only" alignment="center" inset="2" id="nOg-qp-br8">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="24" name="LucidaGrande"/>
                         </buttonCell>
@@ -89,7 +89,7 @@
         </window>
     </objects>
     <resources>
-        <image name="2D07E7F9-BB7E-4A97-AFC5-37B93B799597" width="1" height="1">
+        <image name="DDBC4104-DF60-4719-B036-19691FAF7DC0" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

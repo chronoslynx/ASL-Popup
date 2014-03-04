@@ -1,5 +1,5 @@
-#SmartSign Mac
-The SmartSign Mac application. A menubar application that allows users to search for a word through Georgia Tech's Center for Accesible Technology in Sign's (CATS) text->ASL database and then play the resulting sign.
+#SMARTSign - Assistant Mac
+The SMARTSign-Assistant Mac application. A menubar application that allows users to search for a word through Georgia Tech's Center for Accesible Technology in Sign's (CATS) text->ASL database and then play the resulting sign.
 
 ## Current Issues
 - first time the hotkey is issued the video isn't loaded
