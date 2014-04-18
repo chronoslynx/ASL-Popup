@@ -14,6 +14,8 @@
 		2E097B49189800B5006842CF /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */; };
 		2E097B4D1898016B006842CF /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E097B4C1898016B006842CF /* Podfile */; };
 		2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */; };
+		2E0CB86318E1CD5800F80837 /* SettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E0CB86218E1CD5800F80837 /* SettingsWindow.xib */; };
+		2E14D71919016E0B009D04FD /* SettingsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E14D71819016E0B009D04FD /* SettingsWindow.m */; };
 		2E2DEED018C0FC6B00393F9D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC318C0FC6B00393F9D /* .gitignore */; };
 		2E2DEED118C0FC6B00393F9D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC418C0FC6B00393F9D /* LICENSE */; };
 		2E2DEED218C0FC6B00393F9D /* MASShortcut+Monitoring.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEEC618C0FC6B00393F9D /* MASShortcut+Monitoring.m */; };
@@ -22,7 +24,7 @@
 		2E2DEED518C0FC6B00393F9D /* MASShortcutView+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEECC18C0FC6B00393F9D /* MASShortcutView+UserDefaults.m */; };
 		2E2DEED618C0FC6B00393F9D /* MASShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEECE18C0FC6B00393F9D /* MASShortcutView.m */; };
 		2E2DEED718C0FC6B00393F9D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEECF18C0FC6B00393F9D /* README.md */; };
-		2E2DEEDB18C102BB00393F9D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEED918C102BB00393F9D /* SettingsViewController.m */; };
+		2E2DEEDB18C102BB00393F9D /* SettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2DEED918C102BB00393F9D /* SettingsWindowController.m */; };
 		2E2DEEDC18C102BB00393F9D /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2DEEDA18C102BB00393F9D /* SettingsView.xib */; };
 		2E966863189801BA00866C82 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E966862189801BA00866C82 /* Carbon.framework */; };
 		2EE57ACA18A140EA004C78A4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EE57AC918A140EA004C78A4 /* README.md */; };
@@ -54,9 +56,12 @@
 		2E097B43189800B5006842CF /* DJRPasteboardProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRPasteboardProxy.m; sourceTree = "<group>"; };
 		2E097B44189800B5006842CF /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
 		2E097B45189800B5006842CF /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
-		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		2E097B4C1898016B006842CF /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartsignHelper.h; sourceTree = "<group>"; };
 		2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartsignHelper.m; sourceTree = "<group>"; };
+		2E0CB86218E1CD5800F80837 /* SettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsWindow.xib; sourceTree = "<group>"; };
+		2E14D71719016E0B009D04FD /* SettingsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsWindow.h; sourceTree = "<group>"; };
+		2E14D71819016E0B009D04FD /* SettingsWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsWindow.m; sourceTree = "<group>"; };
 		2E2DEEC318C0FC6B00393F9D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		2E2DEEC418C0FC6B00393F9D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2E2DEEC518C0FC6B00393F9D /* MASShortcut+Monitoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcut+Monitoring.h"; sourceTree = "<group>"; };
@@ -70,8 +75,8 @@
 		2E2DEECD18C0FC6B00393F9D /* MASShortcutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASShortcutView.h; sourceTree = "<group>"; };
 		2E2DEECE18C0FC6B00393F9D /* MASShortcutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASShortcutView.m; sourceTree = "<group>"; };
 		2E2DEECF18C0FC6B00393F9D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		2E2DEED818C102BB00393F9D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		2E2DEED918C102BB00393F9D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2E2DEED818C102BB00393F9D /* SettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsWindowController.h; sourceTree = "<group>"; };
+		2E2DEED918C102BB00393F9D /* SettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsWindowController.m; sourceTree = "<group>"; };
 		2E2DEEDA18C102BB00393F9D /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsView.xib; path = Popup/SettingsView.xib; sourceTree = "<group>"; };
 		2E966862189801BA00866C82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		2EE01AEC18C0DEA800133C17 /* SmartSign Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "SmartSign Mac.entitlements"; sourceTree = "<group>"; };
@@ -145,6 +150,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		2E14D71A19016E10009D04FD /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				2E14D71719016E0B009D04FD /* SettingsWindow.h */,
+				2E14D71819016E0B009D04FD /* SettingsWindow.m */,
+			);
+			name = Windows;
+			sourceTree = "<group>";
+		};
 		2E2DEEC218C0FC6B00393F9D /* MASShortcut */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +220,7 @@
 		DD4F7C0E13C30F9F00825C6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2E14D71A19016E10009D04FD /* Windows */,
 				2E0BEFA218A5513D00D59FDF /* SmartsignHelper.h */,
 				2E0BEFA318A5513D00D59FDF /* SmartsignHelper.m */,
 				2E2DEEC218C0FC6B00393F9D /* MASShortcut */,
@@ -231,8 +246,8 @@
 		DD4F7C2613C311DF00825C6E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2E2DEED818C102BB00393F9D /* SettingsViewController.h */,
-				2E2DEED918C102BB00393F9D /* SettingsViewController.m */,
+				2E2DEED818C102BB00393F9D /* SettingsWindowController.h */,
+				2E2DEED918C102BB00393F9D /* SettingsWindowController.m */,
 				DD4F7C1A13C30F9F00825C6E /* ApplicationDelegate.h */,
 				DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */,
 				DD4F7C3613C317A500825C6E /* MenubarController.h */,
@@ -256,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2DEEDA18C102BB00393F9D /* SettingsView.xib */,
+				2E0CB86218E1CD5800F80837 /* SettingsWindow.xib */,
 				DD4F7C1D13C30F9F00825C6E /* MainMenu.xib */,
 				DD4F7C4013C31B4A00825C6E /* Panel.xib */,
 			);
@@ -355,6 +371,7 @@
 				DD4F7C4113C31B4A00825C6E /* Panel.xib in Resources */,
 				DD4F7C4B13C322FA00825C6E /* Status.png in Resources */,
 				DD4F7C4C13C322FA00825C6E /* StatusHighlighted.png in Resources */,
+				2E0CB86318E1CD5800F80837 /* SettingsWindow.xib in Resources */,
 				2E2DEED118C0FC6B00393F9D /* LICENSE in Resources */,
 				2E2DEED718C0FC6B00393F9D /* README.md in Resources */,
 				DDF4EFAC16C80A510044D141 /* Status@2x.png in Resources */,
@@ -404,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E14D71919016E0B009D04FD /* SettingsWindow.m in Sources */,
 				2E097B46189800B5006842CF /* DJRKeyboardEvents.m in Sources */,
 				2E2DEED418C0FC6B00393F9D /* MASShortcut.m in Sources */,
 				2E2DEED318C0FC6B00393F9D /* MASShortcut+UserDefaults.m in Sources */,
@@ -412,7 +430,7 @@
 				2E0BEFA418A5513D00D59FDF /* SmartsignHelper.m in Sources */,
 				DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */,
 				DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */,
-				2E2DEEDB18C102BB00393F9D /* SettingsViewController.m in Sources */,
+				2E2DEEDB18C102BB00393F9D /* SettingsWindowController.m in Sources */,
 				DD4F7C3C13C3180800825C6E /* StatusItemView.m in Sources */,
 				2E097B48189800B5006842CF /* DJRPasteboardProxy.m in Sources */,
 				2E2DEED218C0FC6B00393F9D /* MASShortcut+Monitoring.m in Sources */,

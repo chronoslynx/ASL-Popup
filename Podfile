@@ -1,2 +1,2 @@
-platform :osx, "10.9"
-pod "AFNetworking", "~> 2.0"
+platform:
+osx, "10.9" pod "AFNetworking", "~> 2.0"

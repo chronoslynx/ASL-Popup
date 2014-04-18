@@ -1,7 +1,7 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 #import "SmartsignHelper.h"
-#import "SettingsViewController.h"
+#import "SettingsWindowController.h"
 
 #import <WebKit/WebKit.h>
 
@@ -34,7 +34,8 @@
 @property(strong) IBOutlet NSScrollView *scrollView;
 @property(strong) IBOutlet NSButton *settingsButton;
 @property(readwrite, strong) NSWindowController *settingsWindowController;
-@property(strong) SettingsViewController *settingsController;
+@property(strong) SettingsWindowController *settingsController;
+@property(strong) MASShortcutView *shortcutView;
 
 @property(nonatomic) BOOL hasActivePanel;
 @property(nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;

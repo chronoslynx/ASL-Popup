@@ -8,7 +8,7 @@
 #import "AFHTTPRequestOperationManager.h"
 
 #import "SmartsignHelper.h"
-#import "SettingsViewController.h"
+#import "SettingsWindowController.h"
 
 NSString *const SmartSignPreferenceKeyShortcut = @"SmartSignKeyboardShortcut";
 NSString *const SmartSignPreferenceKeyShortcutEnabled = @"SmartSignShortcutEnabled";
@@ -47,6 +47,7 @@ void *kContextActivePanel = &kContextActivePanel;
   self.menubarController = [[MenubarController alloc] init];
   [self.shortcutView bind:@"enabled" toObject:self withKeyPath:@"shortcutEnabled" options:nil];
   self.shortcutView.associatedUserDefaultsKey = SmartSignPreferenceKeyShortcut;
+  self.panelController.shortcutView = self.shortcutView;
   [self registerShortcut];
 }
 
@@ -88,18 +89,19 @@ void *kContextActivePanel = &kContextActivePanel;
 - (void)registerShortcut {
   if (self.shortcutEnabled) {
     HotkeyHandler runSearch = ^{
-      NSString *selectedText = [DJRPasteboardProxy selectedText];
-      if (selectedText.length > 0) {
-        // Make sure we avoid a retain cycle
-        __weak typeof(self) weakSelf = self;
-            [[SmartsignHelper shared] findSignForText:selectedText afterwards:^(NSArray *urls){
-              typeof(self) strongSelf = weakSelf;
-              [strongSelf.panelController loadVideosFromArray:urls];
-              [strongSelf togglePanel:nil];
-            }];
-      } else {
-        [self togglePanel:nil];
-      }
+        NSString *selectedText = [DJRPasteboardProxy selectedText];
+        if (selectedText.length > 0) {
+          // Make sure we avoid a retain cycle
+          __weak typeof(self) weakSelf = self;
+          [[SmartsignHelper shared] findSignForText:selectedText
+                                         afterwards:^(NSArray *urls) {
+                                             typeof(self) strongSelf = weakSelf;
+                                             [strongSelf.panelController loadVideosFromArray:urls];
+                                             [strongSelf togglePanel:nil];
+                                         }];
+        } else {
+          [self togglePanel:nil];
+        }
     };
 
     [MASShortcut registerGlobalShortcutWithUserDefaultsKey:SmartSignPreferenceKeyShortcut

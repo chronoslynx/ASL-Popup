@@ -2,7 +2,8 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 #import "MenubarController.h"
-#import "SettingsViewController.h"
+#import "SettingsWindowController.h"
+#import "SettingsWindow.h"
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
@@ -170,11 +171,11 @@
   NSString *searchString = [self.searchField stringValue];
   if (searchString.length > 0) {
     __weak typeof(self) weakSelf = self;
-        [_smartsignHelper findSignForText:searchString afterwards:^(NSArray* urls)
-        {
-          typeof(self) strongSelf = weakSelf;
-          [strongSelf loadVideosFromArray:urls];
-        }];
+    [_smartsignHelper findSignForText:searchString
+                           afterwards:^(NSArray *urls) {
+                               typeof(self) strongSelf = weakSelf;
+                               [strongSelf loadVideosFromArray:urls];
+                           }];
   }
 }
 
@@ -190,25 +191,24 @@
     NSMutableArray *newWebViews = [[NSMutableArray alloc] init];
     NSRect scrollRect = [_scrollView frame];
     // Build each WebView and place them in the ContentView's frame
-        [urls enumerateObjectsUsingBlock:^(NSURLRequest *obj, NSUInteger idx, BOOL *stop)
-        {
-          NSRect webRect = NSMakeRect(WEB_INSET, idx * (WEB_INSET + WEB_HEIGHT),
-                                      scrollRect.size.width - WEB_RIGHT_INSET, WEB_HEIGHT);
-          WebView *webView = [[WebView alloc] initWithFrame:webRect];
-          [webView setFrame:webRect];
-          [webView.mainFrame.frameView setAllowsScrolling:NO];
-          [webView.mainFrame loadRequest:obj];
-          [newWebViews addObject:webView];
-        }];
+    [urls enumerateObjectsUsingBlock:^(NSURLRequest *obj, NSUInteger idx, BOOL *stop) {
+        NSRect webRect = NSMakeRect(WEB_INSET, idx * (WEB_INSET + WEB_HEIGHT),
+                                    scrollRect.size.width - WEB_RIGHT_INSET, WEB_HEIGHT);
+        WebView *webView = [[WebView alloc] initWithFrame:webRect];
+        [webView setFrame:webRect];
+        [webView.mainFrame.frameView setAllowsScrolling:NO];
+        [webView.mainFrame loadRequest:obj];
+        [newWebViews addObject:webView];
+    }];
 
-        // Set the content view's new subviews
-        _webViews = [NSArray arrayWithArray:newWebViews];
-        [_scrollView.documentView
-            setFrame:NSMakeRect(0, 0, scrollRect.size.width - 2 * WEB_INSET,
-                                _webViews.count * WEB_HEIGHT + (_webViews.count - 1) * WEB_INSET)];
-        [_scrollView.documentView setSubviews:_webViews];
+    // Set the content view's new subviews
+    _webViews = [NSArray arrayWithArray:newWebViews];
+    [_scrollView.documentView
+        setFrame:NSMakeRect(0, 0, scrollRect.size.width - 2 * WEB_INSET,
+                            _webViews.count * WEB_HEIGHT + (_webViews.count - 1) * WEB_INSET)];
+    [_scrollView.documentView setSubviews:_webViews];
 
-        [_scrollView setNeedsDisplay:YES];
+    [_scrollView setNeedsDisplay:YES];
   }
 }
 
@@ -290,9 +290,9 @@
 
   dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2),
                  dispatch_get_main_queue(), ^{
-    [self.window orderOut:nil];
-    _webViews = [[NSArray alloc] init];
-    [_scrollView.documentView setSubviews:_webViews];
+      [self.window orderOut:nil];
+      _webViews = [[NSArray alloc] init];
+      [_scrollView.documentView setSubviews:_webViews];
   });
 }
 
@@ -301,10 +301,8 @@
  */
 
 - (IBAction)showSettingsWindow:(id)sender {
-  _settingsController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
-  _settingsWindowController = [[NSWindowController alloc] init];
-  [_settingsWindowController.window.contentView addSubview:[_settingsController view]];
-  NSLog(@"%@", _settingsWindowController.window.contentView);
-  [_settingsWindowController showWindow:nil];
+  _settingsController = [[SettingsWindowController alloc] initWithWindowNibName:@"SettingsWindow"];
+  ((SettingsWindow *)(_settingsController.window)).shortcutView = _shortcutView;
+  [_settingsController showWindow:nil];
 }
 @end

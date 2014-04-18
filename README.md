@@ -6,12 +6,15 @@ The SMARTSign-Assistant Mac application. A menubar application that allows users
 
 ## Todos
 - redesign how the interface works when multiple videos are found
+    - Show video list in a column on the right of the player section
 - give option for configuring hotkey
-- give option for Menubar/normal application (will take quite a bit of work)
+    - currently using MASShortcut for this, but having issues with the keybinding not actually happening
+- give option for Menubar/normal application
 
 
+This project is based off of the following project:
 
-## Popup
+## [Popup](https://github.com/shpakovski/Popup)
 
 Popup project is a demo with custom popover window appearing from the icon in the Mac OS X status bar.
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PanelController">
@@ -73,7 +73,7 @@
                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="tNe-sD-uPM">
                         <rect key="frame" x="256" y="223" width="29" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="BAACEAFA-4A17-4E8B-B7DF-1A8AE378FC46" imagePosition="only" alignment="center" inset="2" id="nOg-qp-br8">
+                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="388B99D1-9586-4A6B-BD53-A6065C3048E8" imagePosition="only" alignment="center" inset="2" id="nOg-qp-br8">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="24" name="LucidaGrande"/>
                         </buttonCell>
@@ -89,7 +89,7 @@
         </window>
     </objects>
     <resources>
-        <image name="BAACEAFA-4A17-4E8B-B7DF-1A8AE378FC46" width="1" height="1">
+        <image name="388B99D1-9586-4A6B-BD53-A6065C3048E8" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
